@@ -1,0 +1,3 @@
+rootProject.name = 'parametrizacao-bi-us'
+
+include 'parametrizacao-bi-api', 'parametrizacao-bi-app', 'parametrizacao-bi-impl', 'parametrizacao-bi-ct-test'

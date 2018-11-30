@@ -1,0 +1,6 @@
+dependencies {
+    compile(unicredServicesDependencies.api)
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+}
+
+description = 'Microserviço de Parametrização BI - API'

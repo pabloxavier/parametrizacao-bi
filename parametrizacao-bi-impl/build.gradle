@@ -1,0 +1,14 @@
+description = 'Microserviço de Parametrização BI - Impl'
+
+dependencies {
+    compile(unicredServicesDependencies.impl)
+    compile(unicredServicesDependencies.sau)    
+    compile project(":parametrizacao-bi-api")
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'   
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.6.5'
+    compile group: 'br.com.unicred.us', name: 'autenticacao-api', version: '1.0.0-RELEASE', changing: true
+    compile('br.com.unicred.arch:validation-utils-arch:1.3.0-RELEASE'){
+    	force=true
+    }
+    
+}

@@ -1,0 +1,74 @@
+format version: 5
+output mode:
+1 items
+0 -> multiple
+output directories:
+2 items
+/opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/src/main/java -> /opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/bin
+/opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/src/main/resources -> /opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/bin
+compile options:
+7 items
+0 -> -javabootclasspath
+1 -> /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar
+2 -> -javaextdirs
+3 ->  
+4 -> -bootclasspath
+5 -> /home/cleber/.p2/pool/plugins/org.scala-lang.scala-library_2.11.8.v20160304-115712-1706a37eb8.jar
+6 -> -target:jvm-1.8
+javac options:
+0 items
+compiler version:
+1 items
+0 -> 2.11.8
+compile order:
+1 items
+0 -> Mixed
+name hashing:
+1 items
+0 -> false
+products:
+0 items
+binary dependencies:
+0 items
+direct source dependencies:
+0 items
+direct external dependencies:
+0 items
+public inherited source dependencies:
+0 items
+public inherited external dependencies:
+0 items
+member reference internal dependencies:
+0 items
+member reference external dependencies:
+0 items
+inheritance internal dependencies:
+0 items
+inheritance external dependencies:
+0 items
+class names:
+0 items
+used names:
+0 items
+product stamps:
+0 items
+source stamps:
+1 items
+/opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/src/main/java/br/com/unicred/parametrizacao/bi/app/App.java -> hash(54b26b9284e904698ac9860b0f4934046bc8f9f2)
+binary stamps:
+0 items
+class names:
+0 items
+internal apis:
+1 items
+/opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/src/main/java/br/com/unicred/parametrizacao/bi/app/App.java -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlFlpwRASfbtoCAAZJAAdhcGlIYXNoWgAIaGFzTWFjcm9MABhfaW50ZXJuYWxPbmx5X25hbWVIYXNoZXN0ACRMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2hlcztMAANhcGl0ABVMeHNidGkvYXBpL1NvdXJjZUFQSTtMAAtjb21waWxhdGlvbnQAF0x4c2J0aS9hcGkvQ29tcGlsYXRpb247WwAEaGFzaHQAAltCeHC4IVHqAHNyACJ4c2J0aS5hcGkuX2ludGVybmFsT25seV9OYW1lSGFzaGVzVNq+mfrU7EwCAAJbAA9pbXBsaWNpdE1lbWJlcnN0ACNbTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoO1sADnJlZ3VsYXJNZW1iZXJzcQB+AAd4cHVyACNbTHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoO0lagLbdlov0AgAAeHAAAAAAdXEAfgAJAAAAAHNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAB1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAHNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWLtVGHN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+ABp4cHQARi9vcHQvZGF0YS93b3Jrc3BhY2UvYXJyZWNhZGFjYW8tdHJpYnV0by11cy9hcnJlY2FkYWNhby10cmlidXRvLWFwcC9iaW50AFAvb3B0L2RhdGEvd29ya3NwYWNlL2FycmVjYWRhY2FvLXRyaWJ1dG8tdXMvYXJyZWNhZGFjYW8tdHJpYnV0by1hcHAvc3JjL21haW4vamF2YXNxAH4AGXQARi9vcHQvZGF0YS93b3Jrc3BhY2UvYXJyZWNhZGFjYW8tdHJpYnV0by11cy9hcnJlY2FkYWNhby10cmlidXRvLWFwcC9iaW50AFUvb3B0L2RhdGEvd29ya3NwYWNlL2FycmVjYWRhY2FvLXRyaWJ1dG8tdXMvYXJyZWNhZGFjYW8tdHJpYnV0by1hcHAvc3JjL21haW4vcmVzb3VyY2VzdXIAAltCrPMX+AYIVOACAAB4cAAAABRUsmuShOkEaYrJhgsPSTQEa8j58g==
+external apis:
+0 items
+source infos:
+1 items
+/opt/data/workspace/parametrizacao-bi-us/parametrizacao-bi-app/src/main/java/br/com/unicred/parametrizacao/bi/app/App.java -> 
+AAAAAAAAAAA=
+compilations:
+1 items
+0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABWLtVGHN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAnNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQARi9vcHQvZGF0YS93b3Jrc3BhY2UvYXJyZWNhZGFjYW8tdHJpYnV0by11cy9hcnJlY2FkYWNhby10cmlidXRvLWFwcC9iaW50AFAvb3B0L2RhdGEvd29ya3NwYWNlL2FycmVjYWRhY2FvLXRyaWJ1dG8tdXMvYXJyZWNhZGFjYW8tdHJpYnV0by1hcHAvc3JjL21haW4vamF2YXNxAH4ABXQARi9vcHQvZGF0YS93b3Jrc3BhY2UvYXJyZWNhZGFjYW8tdHJpYnV0by11cy9hcnJlY2FkYWNhby10cmlidXRvLWFwcC9iaW50AFUvb3B0L2RhdGEvd29ya3NwYWNlL2FycmVjYWRhY2FvLXRyaWJ1dG8tdXMvYXJyZWNhZGFjYW8tdHJpYnV0by1hcHAvc3JjL21haW4vcmVzb3VyY2Vz

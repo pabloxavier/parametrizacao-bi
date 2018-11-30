@@ -1,0 +1,14 @@
+apply plugin: "application"
+apply plugin: "br.com.unicred.arch.springconfig"
+mainClassName = "br.com.unicred.parametrizacao.bi.app.App"
+
+description = "Microserviço de Arrecadação - APP"
+
+bootRepackage {
+    classifier = "fat"
+}
+
+dependencies {
+    compile(unicredServicesDependencies.app)
+    compile project(":parametrizacao-bi-impl")
+}

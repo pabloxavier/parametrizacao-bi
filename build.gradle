@@ -1,0 +1,82 @@
+apply plugin: 'br.com.unicred.arch.buildconfig'
+apply plugin: 'org.sonarqube'
+
+buildscript {
+    repositories { 
+        maven {
+            url "http://nexus.e-unicred.com.br/repository/maven-public/"
+        }
+
+    }
+    dependencies {
+        classpath('br.com.unicred.arch:us-arch-buildconfig:2.2.9-RELEASE') { changing = true }
+        classpath('br.com.unicred.arch:us-arch-springconfig:2.2.9-RELEASE') { changing = true }
+        classpath('org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5')
+    }
+}
+
+description = 'Microservico de Parametrização BI'
+
+jar {
+    baseName = project.name
+    version = project.version
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}
+
+project.allprojects {
+    apply plugin: "jacoco"
+
+    dependencies {
+        testCompile 'org.assertj:assertj-core:3.8.0'
+        testCompile 'com.google.code.bean-matchers:bean-matchers:0.10'
+        
+    }
+    
+    //Necessário para gradle não fazer cache dos snapshots
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    }    
+
+    jacocoTestReport {
+        reports {
+            xml {
+                enabled true
+            }
+            html {
+                enabled true
+            }
+            csv {
+                enabled false
+            }
+            onlyIf = {
+           		 true
+        	}
+        }
+        afterEvaluate {
+            classDirectories = files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: ['**/*DAO*','**/*DTO*','**/App*'])
+            })
+        }
+        doFirst {
+	        executionData = files(executionData.findAll {
+	            it.exists()
+	        })
+    	}
+    }
+}
+
+jacocoTestReport {
+    additionalSourceDirs = files(rootProject.subprojects.sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(rootProject.subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(rootProject.subprojects.sourceSets.main.output)
+    def x =  files(rootProject.subprojects.jacocoTestReport.executionData)
+
+    executionData = files(x.findAll {
+        it.exists()
+    })
+}

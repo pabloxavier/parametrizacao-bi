@@ -1,0 +1,5 @@
+dependencies {
+		compile(unicredServicesDependencies.apitest)	
+		testCompile project(":parametrizacao-bi-api")
+		testCompile project(":parametrizacao-bi-impl")
+}
