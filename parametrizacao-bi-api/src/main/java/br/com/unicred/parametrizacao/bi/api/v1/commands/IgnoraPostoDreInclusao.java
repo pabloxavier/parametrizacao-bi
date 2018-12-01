@@ -1,6 +1,4 @@
-package br.com.unicred.parametrizacao.bi.impl.business.domain;
-
-import br.com.unicred.parametrizacao.bi.api.v1.commands.IgnoraPostoDreInclusao;
+package br.com.unicred.parametrizacao.bi.api.v1.commands;
 
 /**
  * 
@@ -11,31 +9,33 @@ import br.com.unicred.parametrizacao.bi.api.v1.commands.IgnoraPostoDreInclusao;
  *
  * @author thiago.cabelleira
  */
-public class IgnoraPostoDre {
+public class IgnoraPostoDreInclusao {
     
     private Integer codigoCooperativa;
     private Integer codigoPosto;
-    
-    protected IgnoraPostoDre(){
+
+    public IgnoraPostoDreInclusao() {
         
     }
     
-    private IgnoraPostoDre(IgnoraPostoDreInclusao comando){
-        this.codigoCooperativa = comando.getCodigoCooperativa();
-        this.codigoPosto = comando.getCodigoPosto();
+    public void validate() {
+        //TODO realizar validacao
     }
     
-    public static IgnoraPostoDre criar(IgnoraPostoDreInclusao comando){
-        comando.validate();
-        return new IgnoraPostoDre(comando);
-    }
-        
     public Integer getCodigoCooperativa() {
         return codigoCooperativa;
+    }
+    public void setCodigoCooperativa(Integer codigoCooperativa) {
+        this.codigoCooperativa = codigoCooperativa;
     }
     public Integer getCodigoPosto() {
         return codigoPosto;
     }
+    public void setCodigoPosto(Integer codigoPosto) {
+        this.codigoPosto = codigoPosto;
+    }
+    
+
 
     
     
