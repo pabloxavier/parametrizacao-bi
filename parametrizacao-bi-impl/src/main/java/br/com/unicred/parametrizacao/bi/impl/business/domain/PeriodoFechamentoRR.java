@@ -2,13 +2,13 @@ package br.com.unicred.parametrizacao.bi.impl.business.domain;
 
 import java.time.LocalDate;
 
-public class PeriodoFechamentoRankingRating {
+public class PeriodoFechamentoRR {
 
 	private LocalDate dataCompetencia;
 	private LocalDate dataUltimoProcessamento;
 	private boolean isFechado;
 	
-	protected PeriodoFechamentoRankingRating() {
+	protected PeriodoFechamentoRR() {
 		
 	}
 
