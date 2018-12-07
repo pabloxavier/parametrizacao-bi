@@ -125,11 +125,17 @@ INSERT INTO edw.definicao_contas_contabeis_orcado_realizado (codigo_cooperativa,
 -- definicao_contas_contabeis_orcado_realizado_projetos
 CREATE TABLE edw.definicao_contas_contabeis_orcado_realizado_projetos
 (
-    codigo_cooperativa integer,
-    comparacao varchar(20),
-    codigo_conta_estrutural varchar(15),
-    excluir boolean
+   id integer GENERATED ALWAYS AS IDENTITY,
+   codigo_cooperativa integer,
+   comparacao varchar(20),
+   codigo_conta_estrutural varchar(15),
+   excluir boolean
+
 );
+
+ALTER TABLE edw.definicao_contas_contabeis_orcado_realizado_projetos
+ADD PRIMARY KEY (id);
+
 INSERT INTO edw.definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) VALUES (9008, 'like', '8%', false);
 INSERT INTO edw.definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) VALUES (9008, 'like', '2%', false);
 INSERT INTO edw.definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) VALUES (9008, '=', '2239940000', true);

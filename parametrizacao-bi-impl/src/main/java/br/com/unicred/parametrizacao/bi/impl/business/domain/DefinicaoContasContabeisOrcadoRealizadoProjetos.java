@@ -3,6 +3,7 @@ import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasCo
 
 public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
 
+    private Integer id;
     private Integer codigoCooperativa;
     private String codigoContaEstrutural;
     private String comparacao;
@@ -21,6 +22,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
     }
 
     public DefinicaoContasContabeisOrcadoRealizadoProjetos(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command) {
+        this.id = command.getId();
         this.codigoCooperativa = command.getCodigoCooperativa();
         this.codigoContaEstrutural = command.getCodigoContaEstrutural();
         this.comparacao = command.getComparacao();
@@ -42,4 +44,6 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
     public Boolean getExcluir() {
         return excluir;
     }
+
+    public Integer getId() { return id; }
 }
