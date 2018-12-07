@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.unicred.parametrizacao.bi.api.v1.commands.IgnoraPostoDreCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCommand;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.IgnoraPostoDreDAO;
 
 @Service

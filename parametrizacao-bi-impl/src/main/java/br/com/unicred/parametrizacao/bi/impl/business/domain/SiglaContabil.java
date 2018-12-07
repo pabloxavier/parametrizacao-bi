@@ -1,6 +1,6 @@
 package br.com.unicred.parametrizacao.bi.impl.business.domain;
 
-import br.com.unicred.parametrizacao.bi.api.v1.commands.SiglaContabilInclusao;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.SiglaContabilInclusao;
 
 public class SiglaContabil {
 

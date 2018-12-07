@@ -1,4 +1,4 @@
-package br.com.unicred.parametrizacao.bi.api.v1.commands;
+package br.com.unicred.parametrizacao.bi.impl.business.commands;
 
 public class SiglaContabilInclusao {
 	

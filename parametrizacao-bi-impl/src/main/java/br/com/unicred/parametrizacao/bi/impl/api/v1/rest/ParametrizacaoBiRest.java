@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.unicred.arch.swagger.annotation.UnicredSwaggerAPI;
-import br.com.unicred.parametrizacao.bi.api.v1.commands.CooperativaCommand;
 import br.com.unicred.parametrizacao.bi.api.v1.endpoints.DefaultEndpoint;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.CooperativaCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.services.CooperativaService;
 
 import io.swagger.annotations.ApiImplicitParam;
