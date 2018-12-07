@@ -14,8 +14,8 @@ public class PlanoFgCoopBrasilService {
     @Autowired
     private PlanoFgCoopBrasilDAO dao;
 
-    public List<PlanoFgCoopBrasilCommand> buscaContaBacen(final String contaBacen) {
-        return dao.buscaContaBacen(contaBacen);
+    public List<PlanoFgCoopBrasilCommand> buscaContaBacen() {
+        return dao.buscaContaBacen();
     }
 
 }
