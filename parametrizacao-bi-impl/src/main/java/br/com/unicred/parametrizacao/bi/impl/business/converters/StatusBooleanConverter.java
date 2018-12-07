@@ -15,10 +15,6 @@ public class StatusBooleanConverter implements AttributeConverter<Boolean, Strin
 	
 	@Override
 	public Boolean convertToEntityAttribute(String dbData) {
-		if (dbData == "S") {
-			return true;
-		} else {
-			return false;
-		}
+		return (dbData.equals("S"));
 	}
 }
