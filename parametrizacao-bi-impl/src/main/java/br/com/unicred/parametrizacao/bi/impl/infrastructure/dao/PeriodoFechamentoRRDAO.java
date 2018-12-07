@@ -14,6 +14,7 @@ public class PeriodoFechamentoRRDAO {
 
    private static final BeanPropertyRowMapper<PeriodoFechamentoRRCommand> ROW_MAPPER = BeanPropertyRowMapper.newInstance(PeriodoFechamentoRRCommand.class);
 
+   
    @Autowired
    public PeriodoFechamentoRRDAO(final JdbcTemplate jdbcTemplate) {
        this.jdbcTemplate = jdbcTemplate;

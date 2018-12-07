@@ -8,6 +8,7 @@ public class PeriodoFechamentoRRCommand {
     private LocalDate dataUltimoProcessamento;
     private boolean isFechado;
     
+    
     public PeriodoFechamentoRRCommand(){
         
     }
