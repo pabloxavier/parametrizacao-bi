@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import br.com.unicred.parametrizacao.bi.api.v1.commands.IgnoraPostoDreCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCommand;
 
 @Repository
 public class IgnoraPostoDreDAO {

@@ -1,5 +1,5 @@
 package br.com.unicred.parametrizacao.bi.impl.business.domain;
-import br.com.unicred.parametrizacao.bi.api.v1.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
 
 public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
 

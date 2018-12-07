@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.unicred.parametrizacao.bi.api.v1.commands.CooperativaCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.CooperativaCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.domain.Cooperativa;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.CooperativaDAO;
 
 @Service
@@ -18,4 +19,7 @@ public class CooperativaService {
         return dao.buscaCooperativas(cooperativa);
     }
 
+    public boolean inserirCooperativa(Cooperativa cooperativa) {
+        return dao.inserirCooperativa(cooperativa);
+    }
 }

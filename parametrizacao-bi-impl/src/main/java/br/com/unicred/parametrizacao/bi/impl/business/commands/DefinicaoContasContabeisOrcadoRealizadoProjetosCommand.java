@@ -1,5 +1,6 @@
-package br.com.unicred.parametrizacao.bi.api.v1.commands;
-br.com.unicred.parametrizacao.bi.impl.business.validators;
+package br.com.unicred.parametrizacao.bi.impl.business.commands;
+
+import br.com.unicred.parametrizacao.bi.impl.business.validators.CommandValidator;
 
 public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
 
