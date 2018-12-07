@@ -231,7 +231,7 @@ INSERT INTO edw.ignora_posto_dre (codigo_cooperativa, codigo_posto) VALUES (582,
 -- indicador
 CREATE TABLE edw.indicador
 (
-    chave integer SERIAL PRIMARY KEY NOT NULL,
+    chave integer PRIMARY KEY NOT NULL,
     nome_indicador varchar(100),
     periodicidade char
 );
@@ -650,3 +650,8 @@ INSERT INTO ods.posto (cd_coop, cd_posto, cd_cidade, sigla_posto, nm_posto, ds_e
 
 ALTER TABLE edw.sigla_contabil DROP CONSTRAINT sigla_contabil_pkey;
 ALTER TABLE edw.sigla_contabil ADD COLUMN codigo SERIAL PRIMARY KEY;
+
+CREATE SEQUENCE edw.indicador_chave_seq NO MINVALUE NO MAXVALUE START 25 NO CYCLE;
+
+ALTER TABLE edw.indicador ALTER COLUMN chave SET DEFAULT nextval('edw.indicador_chave_seq');
+ALTER SEQUENCE edw.indicador_chave_seq OWNED BY edw.indicador.chave;
