@@ -1,5 +1,7 @@
 package br.com.unicred.parametrizacao.bi.impl.api.v1.rest;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.unicred.arch.swagger.annotation.UnicredSwaggerAPI;
-import br.com.unicred.parametrizacao.bi.api.v1.endpoints.ParametrizacaoBiEndpoint;
+import br.com.unicred.parametrizacao.bi.api.v1.commands.CooperativaCommand;
+import br.com.unicred.parametrizacao.bi.api.v1.endpoints.DefaultEndpoint;
+import br.com.unicred.parametrizacao.bi.impl.business.services.CooperativaService;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -23,14 +27,15 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping(value = "/parametrizacao/bi/v1")
 @UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1", version="v1", title="ParametrizacaoBi API")
-public class ParametrizacaoBiRest implements ParametrizacaoBiEndpoint {
+public class ParametrizacaoBiRest extends DefaultEndpoint {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(ParametrizacaoBiRest.class);
-
-	@Autowired
-	public ParametrizacaoBiRest() {
-		
-	}
+    private CooperativaService cooperativaService;
+    
+    @Autowired
+    public ParametrizacaoBiRest(CooperativaService cooperativaService) {
+        this.cooperativaService = cooperativaService;
+    }
 
 	@RequestMapping(value = "/algo", method = RequestMethod.GET)
 	@ApiOperation(value = "Busca algo.", response = String.class)
@@ -42,13 +47,17 @@ public class ParametrizacaoBiRest implements ParametrizacaoBiEndpoint {
 		@ApiResponse(code = 500, message = "Erro não esperado.") })
 	@CrossOrigin(allowedHeaders = "*")
 	@GetMapping(value = "/algo")
-	@Override
 	public ResponseEntity<?> buscarAlgo(
 			@RequestHeader("cooperativa") final Integer cooperativa, 
 			@RequestHeader("Authorization") final String token) {
 
-
-		return ResponseEntity.ok().build();
+        List<CooperativaCommand> coopsList = cooperativaService.buscaCooperativas(cooperativa);
+        for (CooperativaCommand coop : coopsList) {
+            System.out.println(coop.getCdCoop() + " - " + coop.getSigla().trim() + " - " + coop.getNmCoop());
+        }
+        System.out.println("------------------------------------------------");
+        
+        return ok();
 
 	}
 }

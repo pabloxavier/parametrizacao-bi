@@ -1,6 +1,6 @@
 package br.com.unicred.parametrizacao.bi.impl.business.domain;
 
-import br.com.unicred.parametrizacao.bi.api.v1.commands.IgnoraPostoDreInclusao;
+import br.com.unicred.parametrizacao.bi.api.v1.commands.IgnoraPostoDreCommand;
 
 /**
  * 
@@ -20,12 +20,12 @@ public class IgnoraPostoDre {
         
     }
     
-    private IgnoraPostoDre(IgnoraPostoDreInclusao comando){
+    private IgnoraPostoDre(IgnoraPostoDreCommand comando){
         this.codigoCooperativa = comando.getCodigoCooperativa();
         this.codigoPosto = comando.getCodigoPosto();
     }
     
-    public static IgnoraPostoDre criar(IgnoraPostoDreInclusao comando){
+    public static IgnoraPostoDre criar(IgnoraPostoDreCommand comando){
         comando.validate();
         return new IgnoraPostoDre(comando);
     }
@@ -37,6 +37,40 @@ public class IgnoraPostoDre {
         return codigoPosto;
     }
 
-    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigoCooperativa == null) ? 0 : codigoCooperativa.hashCode());
+        result = prime * result + ((codigoPosto == null) ? 0 : codigoPosto.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        IgnoraPostoDre other = (IgnoraPostoDre) obj;
+        if (codigoCooperativa == null) {
+            if (other.codigoCooperativa != null)
+                return false;
+        } else if (!codigoCooperativa.equals(other.codigoCooperativa))
+            return false;
+        if (codigoPosto == null) {
+            if (other.codigoPosto != null)
+                return false;
+        } else if (!codigoPosto.equals(other.codigoPosto))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "IgnoraPostoDre [codigoCooperativa=" + codigoCooperativa + ", codigoPosto=" + codigoPosto + "]";
+    }
     
 }
