@@ -9,12 +9,12 @@ package br.com.unicred.parametrizacao.bi.api.v1.commands;
  *
  * @author thiago.cabelleira
  */
-public class IgnoraPostoDreInclusao {
+public class IgnoraPostoDreCommand {
     
     private Integer codigoCooperativa;
     private Integer codigoPosto;
 
-    public IgnoraPostoDreInclusao() {
+    public IgnoraPostoDreCommand() {
         
     }
     
