@@ -1,4 +1,5 @@
 package br.com.unicred.parametrizacao.bi.api.v1.commands;
+br.com.unicred.parametrizacao.bi.impl.business.validators;
 
 public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
 
@@ -31,6 +32,8 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
     }
 
     public void validate() {
-
+        CommandValidator<DefinicaoContasContabeisOrcadoRealizadoProjetosCommand> validator =
+                new CommandValidator<DefinicaoContasContabeisOrcadoRealizadoProjetosCommand>();
+        validator.validate(this);
     }
 }
