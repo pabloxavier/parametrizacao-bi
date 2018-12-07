@@ -15,8 +15,8 @@ public class CooperativaService {
     @Autowired
     private CooperativaDAO dao;
 
-    public List<CooperativaCommand> buscaCooperativas(final Integer cooperativa) {
-        return dao.buscaCooperativas(cooperativa);
+    public List<CooperativaCommand> buscaCooperativas() {
+        return dao.buscaCooperativas();
     }
 
     public boolean inserirCooperativa(Cooperativa cooperativa) {
