@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import br.com.unicred.parametrizacao.bi.api.v1.commands.PeriodoFechamentoRRCommand;
+
+import br.com.unicred.parametrizacao.bi.impl.business.commands.PeriodoFechamentoRRCommand;
 
 public class PeriodoFechamentoRRDAO {
 
