@@ -24,7 +24,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosService {
         return null;
     }
 
-    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarPorConta(){
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarPorConta(String conta){
         return null;
     }
 
