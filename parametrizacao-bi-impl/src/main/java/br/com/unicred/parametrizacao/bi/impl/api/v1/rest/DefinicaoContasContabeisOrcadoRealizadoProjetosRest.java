@@ -1,14 +1,10 @@
 package br.com.unicred.parametrizacao.bi.impl.api.v1.rest;
 
 import br.com.unicred.parametrizacao.bi.api.v1.endpoints.DefaultEndpoint;
-import br.com.unicred.parametrizacao.bi.api.v1.representation.DefinicaoContasContabeisOrcadoRealizadoProjetosRepresentation;
-import br.com.unicred.parametrizacao.bi.impl.business.services.DefinicaoContasContabeisOrcadoRealizadoProjetosService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/parametrizacao/bi/v1/ContasContabeisOrcadoRealizadoProjetos")
