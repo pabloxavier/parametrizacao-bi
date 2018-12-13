@@ -16,6 +16,8 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
     private String codigoContaEstrutural;
     @FieldName("Comparacao")
     private String comparacao;
+    @FieldName("Excluir")
+    private Boolean excluir;
 
     public Integer getCodigoCooperativa() {
         return codigoCooperativa;
@@ -48,6 +50,10 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Boolean getExcluir() { return excluir; }
+
+    public void  setExcluir(Boolean excluir) { this.excluir = excluir; }
 
     public void validate() {
         CommandValidator<DefinicaoContasContabeisOrcadoRealizadoProjetosCommand> validator =
