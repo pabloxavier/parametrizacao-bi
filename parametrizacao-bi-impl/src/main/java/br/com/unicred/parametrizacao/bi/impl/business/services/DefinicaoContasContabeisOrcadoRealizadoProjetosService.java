@@ -12,7 +12,11 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosService {
     @Autowired
     private DefinicaoContasContabeisOrcadoRealizadoProjetosDAO dao;
 
-    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listar(){
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarContasAtivas(){
+        return null;
+    }
+
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarContasInativas(){
         return null;
     }
 
@@ -24,21 +28,28 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosService {
         return null;
     }
 
-    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarContasInativas(){
-        return null;
+    public DefinicaoContasContabeisOrcadoRealizadoProjetos buscaPorId(Integer id){
+        return dao.buscaPorId(id);
     }
 
-    public DefinicaoContasContabeisOrcadoRealizadoProjetos consultarPorCooperativa(){
-        return null;
+    public boolean salvarContaContabel(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command){
+        DefinicaoContasContabeisOrcadoRealizadoProjetos.criarDefinicaoContasContabeisOrcadoRealizadoProjetos(command);
+        return dao.inserirContaContabel(command.getCodigoCooperativa(), command.getComparacao(), command.getCodigoContaEstrutural());
     }
 
-    public DefinicaoContasContabeisOrcadoRealizadoProjetos consultarPorConta(){
-        return null;
+    public boolean editarContaContabel(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command, Integer id){
+        return dao.editarContaContabel(command.getCodigoCooperativa(), command.getComparacao(), command.getCodigoContaEstrutural(), command.getExcluir(), id);
     }
 
-    public DefinicaoContasContabeisOrcadoRealizadoProjetos salvarConta(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command){ return null; }
+    public boolean excluirContaContabelPorId(Integer id){
+        return dao.excluirContaContabelPorId(id);
+    }
 
-    public DefinicaoContasContabeisOrcadoRealizadoProjetos editarConta(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command){ return null; }
+    public boolean excluirContaContabelPorConta(String codigoContaEstrutural){
+        return dao.excluirContaContabelPorConta(codigoContaEstrutural);
+    }
 
-    public DefinicaoContasContabeisOrcadoRealizadoProjetos excluir(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command){ return null; }
+    public boolean excluirContaContabelPorCooperativa(Integer codigoCooperativa){
+        return dao.excluirContaContabelPorCooperativa(codigoCooperativa);
+    }
 }
