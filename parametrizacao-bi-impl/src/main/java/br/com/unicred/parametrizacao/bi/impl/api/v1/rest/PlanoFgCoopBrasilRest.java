@@ -39,9 +39,9 @@ public class PlanoFgCoopBrasilRest extends RestExceptionHandler {
         return ResponseEntity.ok(PlanoFgCoopBrasilConverter.from(planoFgCoopBrasilList));
     }
     
-    @RequestMapping(value = "/{codigoContaBacen}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pesquisar/{codigoContaBacen}", method = RequestMethod.GET)
     public ResponseEntity<List<PlanoFgCoopBrasilRepresentation>> pesquisar(@RequestHeader("Authorization") final String token,
-                                                                        @RequestHeader("cooperativa") final String codigoContaBacen) {
+                                                                           @RequestHeader("codigoContaBacen") final String codigoContaBacen) {
         
         List<PlanoFgCoopBrasil> contasBacenList = planoFgCoopBrasilService.buscaContaBacenByCodigo(codigoContaBacen);
         return ResponseEntity.ok(PlanoFgCoopBrasilConverter.from(contasBacenList));

@@ -33,7 +33,7 @@ public class PlanoFgCoopBrasilDAO {
 
     public List<PlanoFgCoopBrasil> buscaContaBacen() {
         try {
-            log.info("Procurando postos ignorados.");
+            log.info("Procurando contas bacen.");
             return jdbcTemplate.query(BUSCA_CONTA_BACEN_SQL, ROW_MAPPER);
         } catch (final EmptyResultDataAccessException e) {
             log.warn("Não foram encontrados codigos bacen.", e);
@@ -42,12 +42,12 @@ public class PlanoFgCoopBrasilDAO {
     }
 
     public List<PlanoFgCoopBrasil> buscaContaBacenByCodigo(String codigoContaBacen) {
-        log.info(String.format("Procurando contas bacen pelo codigo %d.", codigoContaBacen));
+        log.info(String.format("Procurando contas bacen pelo codigo %s.", codigoContaBacen));
         List<PlanoFgCoopBrasil> contasBacenList = jdbcTemplate.query(BUSCA_CONTA_BACEN_SQL_BY_CODIGO, new Object[] { codigoContaBacen }, ROW_MAPPER);
         
         if (contasBacenList.size() == 0) {
-            log.warn(String.format("Não foram encontradas contas Bacen com este codigo %d.", codigoContaBacen));
-            throw new NotFoundException(String.format("Não foram encontradas contas Bacen com este codigo %d.", codigoContaBacen));
+            log.warn(String.format("Não foram encontradas contas Bacen com este codigo %s.", codigoContaBacen));
+            throw new NotFoundException(String.format("Não foram encontradas contas Bacen com este codigo %s.", codigoContaBacen));
         }
         return contasBacenList;
     }
@@ -55,11 +55,11 @@ public class PlanoFgCoopBrasilDAO {
     public PlanoFgCoopBrasil inserirContaBacen(final PlanoFgCoopBrasil planoFgCoopBrasil) {
         
         try {
-            log.info(String.format("Inserindo conta bacen %d com a descrição %d.", planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen()));
+            log.info(String.format("Inserindo conta bacen %s com a descrição %s.", planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen()));
             jdbcTemplate.update(INSERIR_CONTA_BACEN, getParams(planoFgCoopBrasil), getTypes());
             return planoFgCoopBrasil;
         } catch (Exception e) {
-            log.error(String.format("Erro ao inserir conta bacen %d com a descrição %d.", planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen()) + e);
+            log.error(String.format("Erro ao inserir conta bacen %s com a descrição %s.", planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen()) + e);
             throw new ErroInesperadoException();
         }
     }
