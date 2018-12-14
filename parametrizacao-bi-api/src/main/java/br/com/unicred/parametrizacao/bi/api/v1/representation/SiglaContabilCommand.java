@@ -1,17 +1,26 @@
-package br.com.unicred.parametrizacao.bi.impl.business.commands;
+package br.com.unicred.parametrizacao.bi.api.v1.representation;
 
-public class SiglaContabilEdicao {
-
+public class SiglaContabilCommand {
+	
+	private Integer codigo;
 	private String siglaContabil;
 	private Integer ordem;
 	
-	protected SiglaContabilEdicao() {
+	public SiglaContabilCommand() {
 		
 	}
 	
 	public void validate() {
         //TODO realizar validacao
     }
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getSiglaContabil() {
 		return siglaContabil;
@@ -30,7 +39,5 @@ public class SiglaContabilEdicao {
 	}
 	
 	
-	
-	
-	
+
 }

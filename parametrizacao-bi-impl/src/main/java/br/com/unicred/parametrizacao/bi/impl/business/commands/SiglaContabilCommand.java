@@ -1,12 +1,12 @@
 package br.com.unicred.parametrizacao.bi.impl.business.commands;
 
-public class SiglaContabilInclusao {
+public class SiglaContabilCommand {
 	
 	private Integer codigo;
 	private String siglaContabil;
 	private Integer ordem;
 	
-	protected SiglaContabilInclusao() {
+	protected SiglaContabilCommand() {
 		
 	}
 	

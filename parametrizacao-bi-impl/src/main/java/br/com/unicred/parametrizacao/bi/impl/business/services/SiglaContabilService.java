@@ -9,7 +9,7 @@ import br.com.unicred.parametrizacao.bi.impl.business.domain.SiglaContabil;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.SiglaContabilDAO;
 
 @Service
-public class SiglasContabilService {
+public class SiglaContabilService {
 
 	@Autowired
 	private SiglaContabilDAO dao;

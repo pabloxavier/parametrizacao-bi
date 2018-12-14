@@ -9,7 +9,7 @@ dependencies {
     compile project(":parametrizacao-bi-api")
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'   
     compile group: 'br.com.unicred.us', name: 'autenticacao-api', version: '1.0.0-RELEASE', changing: true  
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-web')
     runtime('org.postgresql:postgresql')    
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.6.5'
