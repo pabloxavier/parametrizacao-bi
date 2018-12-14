@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/parametrizacao/bi/v1/indicador/")
+@RequestMapping("/parametrizacao/bi/v1/indicadores")
 @UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1/", version="v1", title="Indicador API")
 public class IndicadorRest extends DefaultEndpoint {
 
@@ -28,7 +28,7 @@ public class IndicadorRest extends DefaultEndpoint {
         this.indicadorService = indicadorService;
     }
 
-    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ApiOperation(value = "Busca a lista de indicadores.", response = Indicador.class, responseContainer = "List")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cooperativa", required = true, dataType = "integer", paramType = "header", value = "código da cooperativa")})
@@ -38,7 +38,6 @@ public class IndicadorRest extends DefaultEndpoint {
             @ApiResponse(code = 500, message = "Erro não esperado.")})
     @CrossOrigin(allowedHeaders = "*")
     public ResponseEntity<?> buscarIndicadores(
-            @RequestHeader("cooperativa") final Integer cooperativa,
             @RequestHeader("Authorization") final String token) {
 
         List<Indicador> indicadores = indicadorService.buscaIndicadores();
@@ -46,7 +45,7 @@ public class IndicadorRest extends DefaultEndpoint {
         return ResponseEntity.ok(IndicadorConverter.from(indicadores));
     }
 
-    @RequestMapping(value = "/consultar/{codigo}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
     @ApiOperation(value = "Busca um indicador específico.", response = Indicador.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cooperativa", required = true, dataType = "integer", paramType = "header", value = "código da cooperativa")})
@@ -56,7 +55,6 @@ public class IndicadorRest extends DefaultEndpoint {
             @ApiResponse(code = 500, message = "Erro não esperado.")})
     @CrossOrigin(allowedHeaders = "*")
     public ResponseEntity<?> buscarIndicador(
-            @RequestHeader("cooperativa") final Integer cooperativa,
             @RequestHeader("Authorization") final String token,
             @PathVariable("codigo") Integer codigo) {
         return ok("Não implementado consulta código [" + codigo + "]");
