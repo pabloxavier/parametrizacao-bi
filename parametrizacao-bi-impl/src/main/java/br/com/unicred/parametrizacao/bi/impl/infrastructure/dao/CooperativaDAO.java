@@ -24,7 +24,7 @@ public class CooperativaDAO {
             BeanPropertyRowMapper.newInstance(CooperativaCommand.class);
     
     private static final String BUSCA_COOPERATIVAS_SQL = "select cd_coop, sigla, nm_coop, flg_ativo from ods.cooperativa";
-    private static final String INSERIR_COOPERATIVA = "";
+    private static final String INSERIR_COOPERATIVA = "insert into dansdjnadkja";
     
     
     @Autowired
@@ -32,7 +32,7 @@ public class CooperativaDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<CooperativaCommand> buscaCooperativas(Integer cooperativa) {
+    public List<CooperativaCommand> buscaCooperativas() {
         return jdbcTemplate.query(BUSCA_COOPERATIVAS_SQL, ROW_MAPPER);
     }
     
