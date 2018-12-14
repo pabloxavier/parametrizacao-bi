@@ -13,14 +13,6 @@ public class IgnoraPostoDreCommand {
     
     private Integer codigoCooperativa;
     private Integer codigoPosto;
-
-    public IgnoraPostoDreCommand() {
-        
-    }
-    
-    public void validate() {
-        //TODO realizar validacao
-    }
     
     public Integer getCodigoCooperativa() {
         return codigoCooperativa;
@@ -34,9 +26,5 @@ public class IgnoraPostoDreCommand {
     public void setCodigoPosto(Integer codigoPosto) {
         this.codigoPosto = codigoPosto;
     }
-    
-
-
-    
     
 }

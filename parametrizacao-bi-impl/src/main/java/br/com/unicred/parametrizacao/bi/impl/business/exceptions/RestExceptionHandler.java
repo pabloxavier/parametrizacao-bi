@@ -28,8 +28,8 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(DominioUniqueException.class)
-    public ResponseEntity<?> handleResourceBadRequestExceptionDominio(DominioUniqueException exception) {
+    @ExceptionHandler(RegistroJaExistenteException.class)
+    public ResponseEntity<?> handleResourceBadRequestExceptionDominio(RegistroJaExistenteException exception) {
 
         MessageErrorResponse message = new MessageErrorResponse();
 
