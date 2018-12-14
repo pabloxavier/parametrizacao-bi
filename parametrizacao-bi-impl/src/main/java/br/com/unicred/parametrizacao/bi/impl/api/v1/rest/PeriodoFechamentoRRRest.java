@@ -12,15 +12,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.unicred.arch.swagger.annotation.UnicredSwaggerAPI;
+import br.com.unicred.parametrizacao.bi.api.v1.representation.IgnoraPostoDreRepresentation;
+import br.com.unicred.parametrizacao.bi.api.v1.representation.PeriodoFechamentoRRRepresentation;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.commands.PeriodoFechamentoRRCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.converters.IgnoraPostoDreConverter;
+import br.com.unicred.parametrizacao.bi.impl.business.converters.PeriodoFechamentoRRConverter;
+import br.com.unicred.parametrizacao.bi.impl.business.domain.IgnoraPostoDre;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.PeriodoFechamentoRR;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.RestExceptionHandler;
 import br.com.unicred.parametrizacao.bi.impl.business.services.PeriodoFechamentoRRService;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
 @RequestMapping("/parametrizacao/bi/v1/periodofechamentorr/")
 @UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1/", version="v1", title="Período Fechamento Rating Ranking API")
-public class PeriodoFechamentoRRRest {
+public class PeriodoFechamentoRRRest extends RestExceptionHandler {
 
    private PeriodoFechamentoRRService periodoFechamentoRRService;
 
@@ -30,20 +37,19 @@ public class PeriodoFechamentoRRRest {
    }
 
    @RequestMapping(value = "/listar'", method = RequestMethod.GET)
-   public ResponseEntity<List<PeriodoFechamentoRRCommand>> buscar(@RequestHeader("Authorization") final String token) {
-       List<PeriodoFechamentoRRCommand> periodo = periodoFechamentoRRService.buscaPeriodoFechamentoRR();
-       return ResponseEntity.ok(periodo);
+   public ResponseEntity<List<PeriodoFechamentoRRRepresentation>> buscar(@RequestHeader("Authorization") final String token) {
+       List<PeriodoFechamentoRR> periodoList = periodoFechamentoRRService.buscaPeriodoFechamentoRR();
+       return ResponseEntity.ok(PeriodoFechamentoRRConverter.from(periodoList));
    }
+     
 
    @RequestMapping(value = "/inserir", method = RequestMethod.POST)
-   public ResponseEntity<Boolean> inserir(
-           @RequestHeader("cooperativa") final Integer coop,
-           @RequestHeader("Authorization") final String token,
-           @RequestBody PeriodoFechamentoRR periodo) {
+   public ResponseEntity<PeriodoFechamentoRRRepresentation> inserir(@RequestHeader("Authorization") final String token,
+                                                                    @RequestBody PeriodoFechamentoRRCommand comando) {
 
-       boolean success = periodoFechamentoRRService.inserirPeriodoFechamentoRR(periodo);
-
-       return ResponseEntity.ok(success);
+	   PeriodoFechamentoRR dominio = periodoFechamentoRRService.inserirPeriodoFechamentoRR(comando);
+	   
+       return ResponseEntity.ok(PeriodoFechamentoRRConverter.from(dominio));
    }
 
 }
