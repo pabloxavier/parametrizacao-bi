@@ -1,36 +1,32 @@
 package br.com.unicred.parametrizacao.bi.impl.business.converters;
 
-import javax.persistence.AttributeConverter;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.Periodicidade;
 
+public class PeriodicidadeConverter {
 
-public class PeriodicidadeConverter implements AttributeConverter<Periodicidade, String> {
+    public static String convertToStringDb(Periodicidade value) {
 
-	@Override
-	public String convertToDatabaseColumn(Periodicidade value) {
-	
-		switch (value) {
-        case ANUAL:
-            return "A";
-        case DIARIO:
-            return "D";
-        case MENSAL:
-            return "M";
+        switch (value) {
+            case ANUAL:
+                return "A";
+            case DIARIO:
+                return "D";
+            case MENSAL:
+                return "M";
+        }
+        return null;
     }
-		return null;
-	}
 
-	@Override
-	public Periodicidade convertToEntityAttribute(String value) {
+    public static Periodicidade convertToEnum(String value) {
 
-		switch (value) {
-		case "A":
-			return Periodicidade.ANUAL;
-		case "D":
-			return Periodicidade.DIARIO;
-		case "M":
-			return Periodicidade.MENSAL;
-		}
-		return null;
-	}
+        switch (value) {
+            case "A":
+                return Periodicidade.ANUAL;
+            case "D":
+                return Periodicidade.DIARIO;
+            case "M":
+                return Periodicidade.MENSAL;
+        }
+        return null;
+    }
 }

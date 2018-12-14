@@ -2,6 +2,7 @@ package br.com.unicred.parametrizacao.bi.impl.api.v1.rest;
 
 import br.com.unicred.arch.swagger.annotation.UnicredSwaggerAPI;
 import br.com.unicred.parametrizacao.bi.api.v1.endpoints.DefaultEndpoint;
+import br.com.unicred.parametrizacao.bi.impl.business.converters.IndicadorConverter;
 import br.com.unicred.parametrizacao.bi.impl.business.services.IndicadorService;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.Indicador;
 import io.swagger.annotations.*;
@@ -11,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/parametrizacao/bi/v1/cooperativa/")
+@RequestMapping("/parametrizacao/bi/v1/indicador/")
 @UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1/", version="v1", title="Indicador API")
 public class IndicadorRest extends DefaultEndpoint {
 
@@ -25,7 +28,7 @@ public class IndicadorRest extends DefaultEndpoint {
         this.indicadorService = indicadorService;
     }
 
-    @RequestMapping(value = "/indicador", method = RequestMethod.GET)
+    @RequestMapping(value = "/listar", method = RequestMethod.GET)
     @ApiOperation(value = "Busca a lista de indicadores.", response = Indicador.class, responseContainer = "List")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cooperativa", required = true, dataType = "integer", paramType = "header", value = "código da cooperativa")})
@@ -37,10 +40,13 @@ public class IndicadorRest extends DefaultEndpoint {
     public ResponseEntity<?> buscarIndicadores(
             @RequestHeader("cooperativa") final Integer cooperativa,
             @RequestHeader("Authorization") final String token) {
-        return ok("Não implementado");
+
+        List<Indicador> indicadores = indicadorService.buscaIndicadores();
+
+        return ResponseEntity.ok(IndicadorConverter.from(indicadores));
     }
 
-    @RequestMapping(value = "/indicador/{codigo}", method = RequestMethod.GET)
+    @RequestMapping(value = "/consultar/{codigo}", method = RequestMethod.GET)
     @ApiOperation(value = "Busca um indicador específico.", response = Indicador.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cooperativa", required = true, dataType = "integer", paramType = "header", value = "código da cooperativa")})
@@ -53,6 +59,6 @@ public class IndicadorRest extends DefaultEndpoint {
             @RequestHeader("cooperativa") final Integer cooperativa,
             @RequestHeader("Authorization") final String token,
             @PathVariable("codigo") Integer codigo) {
-        return ok("Não implementado");
+        return ok("Não implementado consulta código [" + codigo + "]");
     }
 }

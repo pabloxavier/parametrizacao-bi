@@ -1,5 +1,6 @@
 package br.com.unicred.parametrizacao.bi.impl.infrastructure.dao;
 
+import br.com.unicred.parametrizacao.bi.impl.business.converters.IndicadorConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import br.com.unicred.parametrizacao.bi.impl.business.domain.Indicador;
+import br.com.unicred.parametrizacao.bi.impl.business.dto.IndicadorDTO;
 
 import java.util.List;
 
@@ -18,11 +20,10 @@ public class IndicadorDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private static final BeanPropertyRowMapper<Indicador> ROW_MAPPER =
-            BeanPropertyRowMapper.newInstance(Indicador.class);
+    private static final BeanPropertyRowMapper<IndicadorDTO> ROW_MAPPER_DTO =
+            BeanPropertyRowMapper.newInstance(IndicadorDTO.class);
 
-    private static final String BUSCA_INDICADORES_SQL = "select chave, nome_indicador, periodicidade from ods.indicador";
-
+    private static final String BUSCA_INDICADORES_SQL = "select chave, nome_indicador, periodicidade from edw.indicador order by nome_indicador";
 
     @Autowired
     public IndicadorDAO(final JdbcTemplate jdbcTemplate) {
@@ -30,7 +31,7 @@ public class IndicadorDAO {
     }
 
     public List<Indicador> buscaIndicadores() {
-        return jdbcTemplate.query(BUSCA_INDICADORES_SQL, ROW_MAPPER);
+        return IndicadorConverter.fromDTO(jdbcTemplate.query(BUSCA_INDICADORES_SQL, ROW_MAPPER_DTO));
     }
     
 }
