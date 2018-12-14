@@ -35,7 +35,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosRest extends Default
     }
 
     @RequestMapping(value = "/inserir", method = RequestMethod.POST)
-    public ResponseEntity<?> findByCooperativa(@RequestHeader("Authorization") final String token,
+    public ResponseEntity<?> inserir(@RequestHeader("Authorization") final String token,
                                                @RequestBody DefinicaoContasContabeisOrcadoRealizadoProjetosCommand comando) {
         DefinicaoContasContabeisOrcadoRealizadoProjetos conta = service.salvarContaContabil(comando);
         return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(conta));

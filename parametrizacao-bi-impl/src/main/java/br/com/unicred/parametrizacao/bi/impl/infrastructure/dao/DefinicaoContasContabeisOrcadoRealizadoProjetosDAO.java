@@ -27,7 +27,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
     private static final BeanPropertyRowMapper<DefinicaoContasContabeisOrcadoRealizadoProjetos> ROW_MAPPER =
             BeanPropertyRowMapper.newInstance(DefinicaoContasContabeisOrcadoRealizadoProjetos.class);
 
-    private static final String INSERE_CONTA_CONTABIL_SQL = "insert edw.into definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) values(:codigo_cooperativa,:comparacao,:codigo_conta_estrutural, false)";
+    private static final String INSERE_CONTA_CONTABIL_SQL = "insert into edw.definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) values(?, ?, ?, ?)";
 
     private static final String BUSCA_CONTAS_ATIVAS_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos where excluir = false";
     private static final String BUSCA_CONTAS_POR_CONTA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where codigo_conta_estrutural =:codigo_conta_estrutural";
@@ -49,15 +49,17 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
     public DefinicaoContasContabeisOrcadoRealizadoProjetos inserirContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetos conta) {
 
         Object params[] = {
-                conta.getCodigoContaEstrutural(),
+                conta.getCodigoCooperativa(),
                 conta.getComparacao(),
-                conta.getCodigoContaEstrutural()
+                conta.getCodigoContaEstrutural(),
+                Boolean.FALSE
         };
 
-        Object types[] = {
+        int types[] = {
                 Types.INTEGER,
                 Types.VARCHAR,
-                Types.VARCHAR
+                Types.VARCHAR,
+                Types.BOOLEAN
         };
 
         try {
