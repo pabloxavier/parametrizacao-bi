@@ -2,7 +2,6 @@ package br.com.unicred.parametrizacao.bi.impl.business.domain;
 
 import java.time.LocalDate;
 import br.com.unicred.parametrizacao.bi.impl.business.commands.PeriodoFechamentoPPRCommand;
-import br.com.unicred.parametrizacao.bi.impl.business.commands.PeriodoFechamentoRRCommand;
 
 public class PeriodoFechamentoPPR {
 
