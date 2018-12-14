@@ -6,27 +6,30 @@ public class Cooperativa {
     private String sigla;
     private String nmCoop;
     private String flgAtivo;
-    
+
     public Integer getCdCoop() {
         return cdCoop;
+    }
+    public void setCdCoop(Integer cdCoop) {
+        this.cdCoop = cdCoop;
     }
     public String getSigla() {
         return sigla;
     }
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
     public String getNmCoop() {
         return nmCoop;
+    }
+    public void setNmCoop(String nmCoop) {
+        this.nmCoop = nmCoop;
     }
     public String getFlgAtivo() {
         return flgAtivo;
     }
-    @Override
-    public String toString() {
-        return "Cooperativa ["
-                + "cdCoop=" + cdCoop + ", "
-                + "sigla=" + sigla + ", "
-                + "nmCoop=" + nmCoop + ", "
-                + "flgAtivo=" + flgAtivo
-                + "]";
+    public void setFlgAtivo(String flgAtivo) {
+        this.flgAtivo = flgAtivo;
     }
     
 }

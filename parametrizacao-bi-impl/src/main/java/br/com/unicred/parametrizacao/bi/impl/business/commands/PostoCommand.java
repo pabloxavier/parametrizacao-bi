@@ -7,14 +7,6 @@ public class PostoCommand {
     private String siglaPosto;
     private String nmPosto;
     private String flgAtivo;
-    
-    public PostoCommand() {
-
-    }
-    
-    public void validate() {
-        //validar
-    }
 
     public Integer getCdCoop() {
         return cdCoop;
