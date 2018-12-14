@@ -1,11 +1,9 @@
 package br.com.unicred.parametrizacao.bi.impl.infrastructure.dao;
 
 import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosEdicaoCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.DefinicaoContasContabeisOrcadoRealizadoProjetos;
-import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadInsertException;
-import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadRequestException;
-import br.com.unicred.parametrizacao.bi.impl.business.exceptions.MessageErrorDetail;
-import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +26,18 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
             BeanPropertyRowMapper.newInstance(DefinicaoContasContabeisOrcadoRealizadoProjetos.class);
 
     private static final String INSERE_CONTA_CONTABIL_SQL = "insert into edw.definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) values(?, ?, ?, ?)";
-
     private static final String BUSCA_CONTAS_ATIVAS_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos where excluir = false";
-    private static final String BUSCA_CONTAS_POR_CONTA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where codigo_conta_estrutural =:codigo_conta_estrutural";
-    private static final String BUSCA_CONTAS_POR_COOPERATIVA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where codigo_cooperativa =:codigo_cooperativa";
+    private static final String BUSCA_CONTAS_INATIVAS_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos where excluir = true";
+    private static final String BUSCA_CONTAS_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos";
+    private static final String BUSCA_CONTAS_POR_CONTA_ESTRUTURAL_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos where codigo_conta_estrutural = ?";
+    private static final String BUSCA_CONTAS_POR_COOPERATIVA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos where codigo_cooperativa = ?";
     private static final String BUSCA_REGISTRO_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where id =:id";
 
-    private static final String EDITA_REGISTRO_SQL = "update definicao_contas_contabeis_orcado_realizado_projetos set codigo_cooperativa =:codigo_cooperativa, comparacao =:comparacao, codigo_conta_estrutural =:codigo_conta_estrutural where id =:id";
+    private static final String EDITA_REGISTRO_SQL = "update edw.definicao_contas_contabeis_orcado_realizado_projetos set codigo_cooperativa = ?, comparacao = ?, codigo_conta_estrutural = ? where id = ?";
 
-    private static final String EXCLUI_CONTA_CONTABIL_POR_CONTA_SQL = "delete from definicao_contas_contabeis_orcado_realizado_projetos where codigo_conta_estrutural =:codigo_conta_estrutural";
-    private static final String EXCLUI_CONTA_CONTABIL_COOPERATIVA_SQL = "delete from definicao_contas_contabeis_orcado_realizado_projetos where codigo_cooperativa =:codigo_cooperativa";
-    private static final String EXCLUI_CONTA_CONTABIL_POR_ID_SQL = "delete from definicao_contas_contabeis_orcado_realizado_projetos where id =:id";
+    private static final String EXCLUI_CONTA_CONTABIL_POR_CONTA_ESTRUTURAL_SQL = "update edw.definicao_contas_contabeis_orcado_realizado_projetos set excluir = true  where codigo_conta_estrutural = ?";
+    private static final String EXCLUI_CONTA_CONTABIL_COOPERATIVA_SQL = "update edw.definicao_contas_contabeis_orcado_realizado_projetos set excluir = true where codigo_cooperativa = ?";
+    private static final String EXCLUI_CONTA_CONTABIL_POR_ID_SQL = "update edw.definicao_contas_contabeis_orcado_realizado_projetos set excluir = true where id = ?";
 
 
     @Autowired
@@ -72,16 +71,16 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
 
     }
 
-    public boolean editarContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand comando, Integer id) {
+    public boolean editarContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetosEdicaoCommand comando) {
 
         Object params[] = {
                 comando.getCodigoCooperativa(),
                 comando.getComparacao(),
                 comando.getCodigoContaEstrutural(),
-                id
+                comando.getCodigo()
         };
 
-        Object types[] = {
+        int types[] = {
                 Types.INTEGER,
                 Types.VARCHAR,
                 Types.VARCHAR,
@@ -100,27 +99,27 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
     public boolean excluirContaContabelPorId(Integer id) {
 
         Object params[] = { id };
-        Object types[] = { Types.INTEGER };
+        int types[] = { Types.INTEGER };
 
         try {
             jdbcTemplate.update(EXCLUI_CONTA_CONTABIL_POR_ID_SQL, params, types);
         } catch (Exception e) {
             LOGGER.error("Erro ao excluir o registro! " + e);
-            return false;
+            throw  new NotFoundException();
         }
         return true;
     }
 
-    public boolean excluirContaContabelPorConta(String codigoContaEstrutural) {
+    public boolean excluirContaContabelPorContaEstrutural(String codigoContaEstrutural) {
 
         Object params[] = { codigoContaEstrutural };
-        Object types[] = { Types.VARCHAR };
+        int types[] = { Types.VARCHAR };
 
         try {
-            jdbcTemplate.update(EXCLUI_CONTA_CONTABIL_POR_CONTA_SQL, params, types);
+            jdbcTemplate.update(EXCLUI_CONTA_CONTABIL_POR_CONTA_ESTRUTURAL_SQL, params, types);
         } catch (Exception e) {
-            LOGGER.error("Erro ao excluir o(s) registro(s) da conta! " + e);
-            return false;
+            LOGGER.error("Erro ao excluir o registro! " + e);
+            throw  new NotFoundException();
         }
         return true;
     }
@@ -128,26 +127,36 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
     public boolean excluirContaContabelPorCooperativa(Integer codigoCooperativa) {
 
         Object params[] = { codigoCooperativa };
-        Object types[] = { Types.INTEGER };
+        int types[] = { Types.INTEGER };
 
         try {
             jdbcTemplate.update(EXCLUI_CONTA_CONTABIL_COOPERATIVA_SQL, params, types);
         } catch (Exception e) {
-            LOGGER.error("Erro ao excluir o(s) registro(s) da cooperativa! " + e);
-            return false;
+            LOGGER.error("Erro ao excluir o registro! " + e);
+            throw  new NotFoundException();
         }
         return true;
     }
 
     public DefinicaoContasContabeisOrcadoRealizadoProjetos buscaPorId(Integer id){
         Object params[] = {id};
-        Object types[] = {Types.INTEGER};
+        int types[] = {Types.INTEGER};
 
         try {
             return jdbcTemplate.queryForObject(BUSCA_REGISTRO_SQL, params, DefinicaoContasContabeisOrcadoRealizadoProjetos.class);
         } catch (Exception e) {
             LOGGER.error("Erro ao buscar registro pelo identificador!" + e);
             return null;
+        }
+    }
+
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> buscarContas() {
+        try {
+            LOGGER.info("Procurando contas .");
+            return jdbcTemplate.query(BUSCA_CONTAS_SQL, ROW_MAPPER);
+        } catch (final EmptyResultDataAccessException e) {
+            LOGGER.warn("Não foram encontradas contas .", e);
+            throw new NotFoundException("Não foram encontradas contas .");
         }
     }
 
@@ -158,6 +167,42 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
         } catch (final EmptyResultDataAccessException e) {
             LOGGER.warn("Não foram encontradas contas ativas.", e);
             throw new NotFoundException("Não foram encontradas contas ativas.");
+        }
+    }
+
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> buscarContasInativas() {
+        try {
+            LOGGER.info("Procurando contas desativadas.");
+            return jdbcTemplate.query(BUSCA_CONTAS_INATIVAS_SQL, ROW_MAPPER);
+        } catch (final EmptyResultDataAccessException e) {
+            LOGGER.warn("Não foram encontradas contas desativadas.", e);
+            throw new NotFoundException("Não foram encontradas contas desativadas.");
+        }
+    }
+
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> buscarContasPorCooperativa(Integer cdCoop) {
+        try {
+            LOGGER.info("Procurando contas por cooperativa.");
+            return jdbcTemplate.query(BUSCA_CONTAS_POR_COOPERATIVA_SQL,new Object[] {cdCoop}, ROW_MAPPER);
+        } catch (final EmptyResultDataAccessException e) {
+            LOGGER.warn("Não foram encontradas contas ativas.", e);
+            throw new NotFoundException("Não foram encontradas contas nesta cooperativa.");
+        } catch (Exception e) {
+            LOGGER.error("Erro ao consultar cooperativa "+ e);
+            throw new ErroInesperadoException();
+        }
+    }
+
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> buscarContasPorContaEstrutural(String conta) {
+        try {
+            LOGGER.info("Procurando contas por conta estrutural.");
+            return jdbcTemplate.query(BUSCA_CONTAS_POR_CONTA_ESTRUTURAL_SQL,new Object[] {conta}, ROW_MAPPER);
+        } catch (final EmptyResultDataAccessException e) {
+            LOGGER.warn("Não foram encontrada esta  conta estrurural.", e);
+            throw new NotFoundException("Não foram encontrada esta  conta estrurural.");
+        } catch (Exception e) {
+            LOGGER.error("Erro ao consultar conta estrutural "+ e);
+            throw new ErroInesperadoException();
         }
     }
 }
