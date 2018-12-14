@@ -7,16 +7,9 @@ import javax.validation.constraints.NotNull;
 
 public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
 
-    @NotNull
-    @FieldName("Id")
-    private Integer id;
-    @FieldName("Codigo Cooperativa")
     private Integer codigoCooperativa;
-    @FieldName("Codigo Conta Estrutural")
     private String codigoContaEstrutural;
-    @FieldName("Comparacao")
     private String comparacao;
-    @FieldName("Excluir")
     private Boolean excluir;
 
     public Integer getCodigoCooperativa() {
@@ -43,21 +36,8 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
         this.comparacao = comparacao;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Boolean getExcluir() { return excluir; }
 
     public void  setExcluir(Boolean excluir) { this.excluir = excluir; }
 
-    public void validate() {
-        CommandValidator<DefinicaoContasContabeisOrcadoRealizadoProjetosCommand> validator =
-                new CommandValidator<DefinicaoContasContabeisOrcadoRealizadoProjetosCommand>();
-        validator.validate(this);
-    }
 }

@@ -17,13 +17,10 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
     public static DefinicaoContasContabeisOrcadoRealizadoProjetos criarDefinicaoContasContabeisOrcadoRealizadoProjetos
             (DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command) {
 
-        command.validate();
-
         return new DefinicaoContasContabeisOrcadoRealizadoProjetos(command);
     }
 
     public DefinicaoContasContabeisOrcadoRealizadoProjetos(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command) {
-        this.id = command.getId();
         this.codigoCooperativa = command.getCodigoCooperativa();
         this.codigoContaEstrutural = command.getCodigoContaEstrutural();
         this.comparacao = command.getComparacao();

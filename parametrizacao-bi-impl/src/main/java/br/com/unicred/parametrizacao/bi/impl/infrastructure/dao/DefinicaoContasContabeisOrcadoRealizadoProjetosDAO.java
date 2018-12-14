@@ -9,23 +9,27 @@ import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundExcepti
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Types;
+import java.util.List;
 
+@Repository
 public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
 
     private Logger LOGGER = LoggerFactory.getLogger(DefinicaoContasContabeisOrcadoRealizadoProjetosDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
 
-    private static final BeanPropertyRowMapper<DefinicaoContasContabeisOrcadoRealizadoProjetosCommand> ROW_MAPPER =
-            BeanPropertyRowMapper.newInstance(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand.class);
+    private static final BeanPropertyRowMapper<DefinicaoContasContabeisOrcadoRealizadoProjetos> ROW_MAPPER =
+            BeanPropertyRowMapper.newInstance(DefinicaoContasContabeisOrcadoRealizadoProjetos.class);
 
-    private static final String INSERE_CONTA_CONTABIL_SQL = "insert into definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) values(:codigo_cooperativa,:comparacao,:codigo_conta_estrutural, 0)";
+    private static final String INSERE_CONTA_CONTABIL_SQL = "insert edw.into definicao_contas_contabeis_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir) values(:codigo_cooperativa,:comparacao,:codigo_conta_estrutural, false)";
 
-    private static final String BUSCA_CONTAS_ATIVAS_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where excluir = 1";
+    private static final String BUSCA_CONTAS_ATIVAS_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from edw.definicao_contas_contabeis_orcado_realizado_projetos where excluir = false";
     private static final String BUSCA_CONTAS_POR_CONTA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where codigo_conta_estrutural =:codigo_conta_estrutural";
     private static final String BUSCA_CONTAS_POR_COOPERATIVA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where codigo_cooperativa =:codigo_cooperativa";
     private static final String BUSCA_REGISTRO_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where id =:id";
@@ -142,6 +146,16 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
         } catch (Exception e) {
             LOGGER.error("Erro ao buscar registro pelo identificador!" + e);
             return null;
+        }
+    }
+
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> buscarContasAtivas() {
+        try {
+            LOGGER.info("Procurando contas ativas.");
+            return jdbcTemplate.query(BUSCA_CONTAS_ATIVAS_SQL, ROW_MAPPER);
+        } catch (final EmptyResultDataAccessException e) {
+            LOGGER.warn("Não foram encontradas contas ativas.", e);
+            throw new NotFoundException("Não foram encontradas contas ativas.");
         }
     }
 }
