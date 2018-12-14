@@ -1,16 +1,20 @@
-package br.com.unicred.parametrizacao.bi.impl.business.commands;
+package br.com.unicred.parametrizacao.bi.api.v1.representation;
 
-import br.com.unicred.parametrizacao.bi.impl.business.exceptions.FieldName;
-import br.com.unicred.parametrizacao.bi.impl.business.validators.CommandValidator;
+public class DefinicaoContasContabeisOrcadoRealizadoProjetosRepresentation {
 
-import javax.validation.constraints.NotNull;
-
-public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
-
+    private Integer codigo;
     private Integer codigoCooperativa;
     private String codigoContaEstrutural;
     private String comparacao;
-    private Boolean excluir;
+    private Boolean status;
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
 
     public Integer getCodigoCooperativa() {
         return codigoCooperativa;
@@ -36,8 +40,11 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosCommand {
         this.comparacao = comparacao;
     }
 
-    public Boolean getExcluir() { return excluir; }
+    public Boolean getStatus() {
+        return status;
+    }
 
-    public void  setExcluir(Boolean excluir) { this.excluir = excluir; }
-
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 }

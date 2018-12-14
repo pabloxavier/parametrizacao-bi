@@ -2,29 +2,40 @@ package br.com.unicred.parametrizacao.bi.impl.business.services;
 
 import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.DefinicaoContasContabeisOrcadoRealizadoProjetos;
+import br.com.unicred.parametrizacao.bi.impl.business.validators.DefinicaoContasContabeisOrcadoRealizadoProjetosValidator;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.DefinicaoContasContabeisOrcadoRealizadoProjetosDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class DefinicaoContasContabeisOrcadoRealizadoProjetosService {
 
-    @Autowired
+
     private DefinicaoContasContabeisOrcadoRealizadoProjetosDAO dao;
+    private DefinicaoContasContabeisOrcadoRealizadoProjetosValidator validator;
+
+    @Autowired
+    private DefinicaoContasContabeisOrcadoRealizadoProjetosService(
+            DefinicaoContasContabeisOrcadoRealizadoProjetosDAO dao,
+            DefinicaoContasContabeisOrcadoRealizadoProjetosValidator validator) {
+        this.dao = dao;
+        this.validator = validator;
+    }
 
     public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarContasAtivas(){
-        return null;
+        return dao.buscarContasAtivas();
     }
 
     public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarContasInativas(){
         return null;
     }
 
-    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarPorCooperativa(){
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarPorCooperativa(Integer cdCoop){
         return null;
     }
 
-    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarPorConta(){
+    public List<DefinicaoContasContabeisOrcadoRealizadoProjetos> listarPorConta(String conta){
         return null;
     }
 
@@ -32,13 +43,13 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosService {
         return dao.buscaPorId(id);
     }
 
-    public boolean salvarContaContabel(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command){
-        DefinicaoContasContabeisOrcadoRealizadoProjetos.criarDefinicaoContasContabeisOrcadoRealizadoProjetos(command);
-        return dao.inserirContaContabel(command.getCodigoCooperativa(), command.getComparacao(), command.getCodigoContaEstrutural());
+    public DefinicaoContasContabeisOrcadoRealizadoProjetos salvarContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command) {
+        validator.validateInsert(command);
+        DefinicaoContasContabeisOrcadoRealizadoProjetos conta = DefinicaoContasContabeisOrcadoRealizadoProjetos.criarDefinicaoContasContabeisOrcadoRealizadoProjetos(command);
+        return dao.inserirContaContabil(conta);
     }
-
-    public boolean editarContaContabel(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command, Integer id){
-        return dao.editarContaContabel(command.getCodigoCooperativa(), command.getComparacao(), command.getCodigoContaEstrutural(), command.getExcluir(), id);
+    public boolean editarContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command, Integer id){
+        return dao.editarContaContabil(command, id);
     }
 
     public boolean excluirContaContabelPorId(Integer id){

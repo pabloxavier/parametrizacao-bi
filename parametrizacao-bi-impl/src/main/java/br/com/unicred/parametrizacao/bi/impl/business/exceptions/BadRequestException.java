@@ -7,7 +7,7 @@ public class BadRequestException extends RuntimeException {
     private List<MessageErrorDetail> errors;
 
     public BadRequestException(List<MessageErrorDetail> errors) {
-        super("Erros de validaÃ§Ã£o.");
+        super("Erros de validação.");
         this.errors = errors;
     }
 

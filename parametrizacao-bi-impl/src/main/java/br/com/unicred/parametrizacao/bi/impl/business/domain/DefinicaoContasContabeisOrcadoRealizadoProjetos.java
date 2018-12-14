@@ -9,6 +9,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
     private String comparacao;
     private Boolean excluir;
 
+
     protected DefinicaoContasContabeisOrcadoRealizadoProjetos() {
 
     }
@@ -16,13 +17,10 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
     public static DefinicaoContasContabeisOrcadoRealizadoProjetos criarDefinicaoContasContabeisOrcadoRealizadoProjetos
             (DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command) {
 
-        command.validate();
-
         return new DefinicaoContasContabeisOrcadoRealizadoProjetos(command);
     }
 
     public DefinicaoContasContabeisOrcadoRealizadoProjetos(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand command) {
-        this.id = command.getId();
         this.codigoCooperativa = command.getCodigoCooperativa();
         this.codigoContaEstrutural = command.getCodigoContaEstrutural();
         this.comparacao = command.getComparacao();
@@ -46,4 +44,24 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetos {
     }
 
     public Integer getId() { return id; }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCodigoCooperativa(Integer codigoCooperativa) {
+        this.codigoCooperativa = codigoCooperativa;
+    }
+
+    public void setCodigoContaEstrutural(String codigoContaEstrutural) {
+        this.codigoContaEstrutural = codigoContaEstrutural;
+    }
+
+    public void setComparacao(String comparacao) {
+        this.comparacao = comparacao;
+    }
+
+    public void setExcluir(Boolean excluir) {
+        this.excluir = excluir;
+    }
 }
