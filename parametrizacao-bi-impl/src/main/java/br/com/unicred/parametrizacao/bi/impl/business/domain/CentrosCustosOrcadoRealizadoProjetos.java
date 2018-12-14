@@ -1,10 +1,18 @@
 package br.com.unicred.parametrizacao.bi.impl.business.domain;
 
+import br.com.unicred.parametrizacao.bi.impl.business.commands.CentrosCustosOrcadoRealizadoProjetosCommand;
+
 import java.util.Objects;
 
 public class CentrosCustosOrcadoRealizadoProjetos {
     private Integer codigoCooperativa;
     private Integer codigoPosto;
+
+
+    public CentrosCustosOrcadoRealizadoProjetos(CentrosCustosOrcadoRealizadoProjetosCommand command){
+        this.codigoCooperativa = command.getCodigoCooperativa();
+        this.codigoPosto = command.getCodigoPosto();
+    }
 
     public Integer getCodigoCooperativa() {
         return codigoCooperativa;
@@ -20,6 +28,10 @@ public class CentrosCustosOrcadoRealizadoProjetos {
 
     public void setCodigoPosto(Integer codigoPosto) {
         this.codigoPosto = codigoPosto;
+    }
+
+    public static CentrosCustosOrcadoRealizadoProjetos criar(CentrosCustosOrcadoRealizadoProjetosCommand command){
+            return new CentrosCustosOrcadoRealizadoProjetos(command);
     }
 
     @Override
