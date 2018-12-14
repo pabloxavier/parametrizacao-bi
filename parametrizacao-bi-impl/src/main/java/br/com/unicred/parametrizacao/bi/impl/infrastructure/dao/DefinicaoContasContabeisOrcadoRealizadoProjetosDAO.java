@@ -2,6 +2,10 @@ package br.com.unicred.parametrizacao.bi.impl.infrastructure.dao;
 
 import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.DefinicaoContasContabeisOrcadoRealizadoProjetos;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadInsertException;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadRequestException;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.MessageErrorDetail;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +30,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
     private static final String BUSCA_CONTAS_POR_COOPERATIVA_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where codigo_cooperativa =:codigo_cooperativa";
     private static final String BUSCA_REGISTRO_SQL = "select id, codigo_cooperativa, comparacao, codigo_conta_estrutural, excluir from definicao_contas_contabeis_orcado_realizado_projetos where id =:id";
 
-    private static final String EDITA_REGISTRO_SQL = "update definicao_contas_contabeis_orcado_realizado_projetos set codigo_cooperativa =:codigo_cooperativa, comparacao =:comparacao, codigo_conta_estrutural =:codigo_conta_estrutural, excluir =:excluir where id =:id";
+    private static final String EDITA_REGISTRO_SQL = "update definicao_contas_contabeis_orcado_realizado_projetos set codigo_cooperativa =:codigo_cooperativa, comparacao =:comparacao, codigo_conta_estrutural =:codigo_conta_estrutural where id =:id";
 
     private static final String EXCLUI_CONTA_CONTABIL_POR_CONTA_SQL = "delete from definicao_contas_contabeis_orcado_realizado_projetos where codigo_conta_estrutural =:codigo_conta_estrutural";
     private static final String EXCLUI_CONTA_CONTABIL_COOPERATIVA_SQL = "delete from definicao_contas_contabeis_orcado_realizado_projetos where codigo_cooperativa =:codigo_cooperativa";
@@ -38,12 +42,12 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public boolean inserirContaContabel(Integer codigoCooperativa, String comparacao, String codigoContaEstrutural) {
+    public DefinicaoContasContabeisOrcadoRealizadoProjetos inserirContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetos conta) {
 
         Object params[] = {
-                codigoCooperativa,
-                comparacao,
-                codigoContaEstrutural
+                conta.getCodigoContaEstrutural(),
+                conta.getComparacao(),
+                conta.getCodigoContaEstrutural()
         };
 
         Object types[] = {
@@ -54,20 +58,20 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
 
         try {
             jdbcTemplate.update(INSERE_CONTA_CONTABIL_SQL, params, types);
+            return conta;
         } catch (Exception e) {
             LOGGER.error("Erro ao inserir o registro! "+ e);
-            return false;
+            throw new BadInsertException("Não foi possivel inserir conta - " + conta.getCodigoContaEstrutural());
         }
-        return true;
+
     }
 
-    public boolean editarContaContabel(Integer codigoCooperativa, String comparacao, String codigoContaEstrutural, Boolean excluir, Integer id) {
+    public boolean editarContaContabil(DefinicaoContasContabeisOrcadoRealizadoProjetosCommand comando, Integer id) {
 
         Object params[] = {
-                codigoCooperativa,
-                comparacao,
-                codigoContaEstrutural,
-                excluir,
+                comando.getCodigoCooperativa(),
+                comando.getComparacao(),
+                comando.getCodigoContaEstrutural(),
                 id
         };
 
@@ -75,7 +79,6 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
                 Types.INTEGER,
                 Types.VARCHAR,
                 Types.VARCHAR,
-                Types.BOOLEAN,
                 Types.INTEGER
         };
 
@@ -83,7 +86,7 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosDAO {
             jdbcTemplate.update(EDITA_REGISTRO_SQL, params, types);
         } catch (Exception e) {
             LOGGER.error("Erro ao atualizar o registro! " + e);
-            return false;
+            throw  new NotFoundException();
         }
         return true;
     }
