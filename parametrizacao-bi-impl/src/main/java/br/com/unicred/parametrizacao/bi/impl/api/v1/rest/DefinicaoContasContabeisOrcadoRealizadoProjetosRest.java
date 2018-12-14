@@ -4,6 +4,7 @@ import br.com.unicred.arch.swagger.annotation.UnicredSwaggerAPI;
 import br.com.unicred.parametrizacao.bi.api.v1.endpoints.DefaultEndpoint;
 import br.com.unicred.parametrizacao.bi.api.v1.representation.DefinicaoContasContabeisOrcadoRealizadoProjetosRepresentation;
 import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
+import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosEdicaoCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.converters.DefinicaoContasContabeisOrcadoRealizadoProjetosConverter;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.DefinicaoContasContabeisOrcadoRealizadoProjetos;
 import br.com.unicred.parametrizacao.bi.impl.business.services.DefinicaoContasContabeisOrcadoRealizadoProjetosService;
@@ -21,18 +22,47 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosRest extends Default
     @Autowired
     private DefinicaoContasContabeisOrcadoRealizadoProjetosService service;
 
-    @RequestMapping(value = "/listar", method = RequestMethod.GET)
-    public ResponseEntity<?> findAll(@RequestHeader("Authorization") final String token) {
+
+    @RequestMapping(value = "/listarContas", method = RequestMethod.GET)
+    public ResponseEntity<?> listarContas(@RequestHeader("Authorization") final String token) {
+        List<DefinicaoContasContabeisOrcadoRealizadoProjetos> contas = service.listarContas();
+        return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(contas));
+    }
+
+    @RequestMapping(value = "/listarContasInativas", method = RequestMethod.GET)
+    public ResponseEntity<?> listarContasInativas(@RequestHeader("Authorization") final String token) {
+        List<DefinicaoContasContabeisOrcadoRealizadoProjetos> contas = service.listarContasInativas();
+        return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(contas));
+    }
+
+
+    @RequestMapping(value = "/listarContasAtivas", method = RequestMethod.GET)
+    public ResponseEntity<?> listarContasAtivas(@RequestHeader("Authorization") final String token) {
         List<DefinicaoContasContabeisOrcadoRealizadoProjetos> contas = service.listarContasAtivas();
         return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(contas));
     }
 
-    @RequestMapping(value = "/ListarContasPorCooperativa", method = RequestMethod.GET)
-    public ResponseEntity<?> findByCooperativa(@RequestHeader("Authorization") final String token,
+    @RequestMapping(value = "/listarContasPorCooperativa/{codigoCooperativa}", method = RequestMethod.GET)
+    public ResponseEntity<?> listarPorCooperativa(@RequestHeader("Authorization") final String token,
                                                @PathVariable("codigoCooperativa") final Integer cdCoop) {
-        List<DefinicaoContasContabeisOrcadoRealizadoProjetos> conta = service.listarPorCooperativa(cdCoop);
-        return ok();
+        List<DefinicaoContasContabeisOrcadoRealizadoProjetos> contas = service.listarPorCooperativa(cdCoop);
+        return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(contas));
     }
+
+    @RequestMapping(value = "/listarContasPorContaEstrutural/{codigoConta}", method = RequestMethod.GET)
+    public ResponseEntity<?> listarPorContaEstrutural(@RequestHeader("Authorization") final String token,
+                                               @PathVariable("codigoConta") final String codigoConta) {
+        List<DefinicaoContasContabeisOrcadoRealizadoProjetos> contas = service.listarPorContaEstrutural(codigoConta);
+        return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(contas));
+    }
+
+    @RequestMapping(value = "/listarContasPorCodigo/{codigo}", method = RequestMethod.GET)
+    public ResponseEntity<?> listarPorCodigo(@RequestHeader("Authorization") final String token,
+                                               @PathVariable("codigo") final Integer codigo) {
+        DefinicaoContasContabeisOrcadoRealizadoProjetos conta = service.listarContasPorCodigo(codigo);
+        return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(conta));
+    }
+
 
     @RequestMapping(value = "/inserir", method = RequestMethod.POST)
     public ResponseEntity<?> inserir(@RequestHeader("Authorization") final String token,
@@ -41,6 +71,32 @@ public class DefinicaoContasContabeisOrcadoRealizadoProjetosRest extends Default
         return ok(DefinicaoContasContabeisOrcadoRealizadoProjetosConverter.from(conta));
     }
 
+    @RequestMapping(value = "/editar", method = RequestMethod.PUT)
+    public ResponseEntity<?> alterar(@RequestHeader("Authorization") final String token,
+                                     @RequestBody DefinicaoContasContabeisOrcadoRealizadoProjetosEdicaoCommand comando) {
+     boolean confirma = service.editarContaContabil(comando);
+        return ok("Conta alterada com sucesso");
+    }
 
+    @RequestMapping(value = "/excluirContasPorCodigo/{codigo}", method = RequestMethod.PUT)
+    public ResponseEntity<?> excluirContaPorId(@RequestHeader("Authorization") final String token,
+                                               @PathVariable("codigo") final Integer codigo) {
+        boolean excluido = service.excluirContaContabilPorId(codigo);
+        return ok("Codigo excluido com sucesso");
+    }
+
+    @RequestMapping(value = "/excluirContasPorContaEstrutural/{conta}", method = RequestMethod.PUT)
+    public ResponseEntity<?> excluirContaEstrutural(@RequestHeader("Authorization") final String token,
+                                          @PathVariable("conta") final String conta) {
+        boolean excluido = service.excluirContaContabilPorContaEStrutural(conta);
+        return ok("Conta excluida com sucesso");
+    }
+
+    @RequestMapping(value = "/excluirContasPorCooperativa/{codigoCooperativa}", method = RequestMethod.PUT)
+    public ResponseEntity<?> excluirConta(@RequestHeader("Authorization") final String token,
+                                          @PathVariable("codigoCooperativa") final Integer cdCoop) {
+        boolean excluido = service.excluirContaContabilPorCooperativa(cdCoop);
+        return ok("Contas da Cooperativa excluidas com sucesso");
+    }
 
 }
