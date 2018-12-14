@@ -17,7 +17,6 @@ public class PlanoFgCoopBrasil {
 	}
 	
 	public static PlanoFgCoopBrasil criar(PlanoFgCoopBrasilCommand comando) {
-		comando.validate();
 		return new PlanoFgCoopBrasil(comando);
 	}
 
@@ -25,9 +24,16 @@ public class PlanoFgCoopBrasil {
 		return codigoContaBacen;
 	}
 
+	public void setCodigoContaBacen(String codigoContaBacen) {
+		this.codigoContaBacen = codigoContaBacen;
+	}
+
 	public String getDescricaoContaBacen() {
 		return descricaoContaBacen;
 	}
-	
-	
+
+	public void setDescricaoContaBacen(String descricaoContaBacen) {
+		this.descricaoContaBacen = descricaoContaBacen;
+	}
+
 }
