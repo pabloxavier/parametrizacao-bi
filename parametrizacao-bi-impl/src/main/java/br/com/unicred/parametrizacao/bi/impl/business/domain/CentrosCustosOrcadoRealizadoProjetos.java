@@ -5,9 +5,12 @@ import br.com.unicred.parametrizacao.bi.impl.business.commands.CentrosCustosOrca
 import java.util.Objects;
 
 public class CentrosCustosOrcadoRealizadoProjetos {
+
     private Integer codigoCooperativa;
     private Integer codigoPosto;
 
+    public CentrosCustosOrcadoRealizadoProjetos() {
+    }
 
     public CentrosCustosOrcadoRealizadoProjetos(CentrosCustosOrcadoRealizadoProjetosCommand command){
         this.codigoCooperativa = command.getCodigoCooperativa();
