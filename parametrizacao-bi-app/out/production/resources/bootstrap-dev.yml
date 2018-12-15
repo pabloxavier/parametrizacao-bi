@@ -1,0 +1,4 @@
+spring:
+    cloud:
+        config:
+            uri: https://servicos-tst.e-unicred.com.br/config-server-arch-dev

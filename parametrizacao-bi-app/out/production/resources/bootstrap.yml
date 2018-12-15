@@ -1,0 +1,18 @@
+spring:
+    application:
+        name: parametrizacao-bi-us
+    cloud:
+        config:
+            uri: http://config-server-arch.plataforma.svc.unicred.local:8888
+    profiles:
+        include: us, sau
+hystrix:
+  command:
+   default:
+     execution:
+       isolation:
+         thread:
+           timeoutInMilliseconds: 10000
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
