@@ -55,5 +55,16 @@ public class PlanoFgCoopBrasilRest extends RestExceptionHandler {
         
         return ResponseEntity.ok(PlanoFgCoopBrasilConverter.from(dominio));
     }
+    
+    @RequestMapping(value = "/alterar", method = RequestMethod.POST)
+
+    public ResponseEntity<PlanoFgCoopBrasilRepresentation> alterar(@RequestHeader("Authorization") final String token,
+    															   @RequestHeader("codigoContaBacen") final String codigoContaBacen,
+            													   @RequestBody PlanoFgCoopBrasilCommand planoFgCoopBrasilCommand) {
+        
+        PlanoFgCoopBrasil dominio = planoFgCoopBrasilService.alterarContaBacen(planoFgCoopBrasilCommand, codigoContaBacen);
+        
+        return ResponseEntity.ok(PlanoFgCoopBrasilConverter.from(dominio));
+    }
 
 }

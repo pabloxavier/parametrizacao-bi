@@ -36,4 +36,11 @@ public class PlanoFgCoopBrasilService {
     	return planoFgCoopBrasil;
     }
 
+    public PlanoFgCoopBrasil alterarContaBacen(final PlanoFgCoopBrasilCommand comando, final String codigoContaBacen) {
+        
+    	PlanoFgCoopBrasil planoFgCoopBrasil = PlanoFgCoopBrasil.alterar(comando ,codigoContaBacen);
+    	planoFgCoopBrasilDAO.alterarContaBacen(planoFgCoopBrasil, codigoContaBacen);
+    	return planoFgCoopBrasil;
+    }
+
 }

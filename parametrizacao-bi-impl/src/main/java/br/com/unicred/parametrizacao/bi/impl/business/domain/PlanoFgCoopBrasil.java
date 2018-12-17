@@ -20,6 +20,10 @@ public class PlanoFgCoopBrasil {
 		return new PlanoFgCoopBrasil(comando);
 	}
 
+	public static PlanoFgCoopBrasil alterar(PlanoFgCoopBrasilCommand comando, String codigoContaBacen) {
+		return new PlanoFgCoopBrasil(comando);
+	}
+
 	public String getCodigoContaBacen() {
 		return codigoContaBacen;
 	}
