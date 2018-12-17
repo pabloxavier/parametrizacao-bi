@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,7 @@ public class IgnoraPostoDreRest extends RestExceptionHandler /*DefaultEndpoint*/
         this.ignoraPostoDreService = ignoraPostoDreService;
     }
     
-    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<IgnoraPostoDreRepresentation>> buscar(@RequestHeader("Authorization") final String token) {
         List<IgnoraPostoDre> postosIgnoradosList = ignoraPostoDreService.buscaPostosIgnorados();
         return ResponseEntity.ok(IgnoraPostoDreConverter.from(postosIgnoradosList));
@@ -41,7 +43,7 @@ public class IgnoraPostoDreRest extends RestExceptionHandler /*DefaultEndpoint*/
     
     @RequestMapping(value = "/{cooperativa}", method = RequestMethod.GET)
     public ResponseEntity<List<IgnoraPostoDreRepresentation>> pesquisar(@RequestHeader("Authorization") final String token,
-                                                                        @RequestHeader("cooperativa") final Integer cooperativa) {
+                                                                        @PathVariable("cooperativa") final Integer cooperativa) {
         
         List<IgnoraPostoDre> postosIgnoradosList = ignoraPostoDreService.buscaPostosIgnoradosByCoop(cooperativa);
         return ResponseEntity.ok(IgnoraPostoDreConverter.from(postosIgnoradosList));

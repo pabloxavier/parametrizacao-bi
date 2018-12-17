@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +20,7 @@ import br.com.unicred.parametrizacao.bi.impl.business.exceptions.RestExceptionHa
 import br.com.unicred.parametrizacao.bi.impl.business.services.CooperativaService;
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/parametrizacao/bi/v1/cooperativa/")
+@RequestMapping("/parametrizacao/bi/v1/cooperativas/")
 @UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1/", version="v1", title="Cooperativa API")
 public class CooperativaRest extends RestExceptionHandler{
 
@@ -29,7 +31,7 @@ public class CooperativaRest extends RestExceptionHandler{
         this.cooperativaService = cooperativaService;
     }
     
-    @RequestMapping(value = "/listar", method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<CooperativaRepresentation>> listar(@RequestHeader(name = "Authorization") final String token,
                                                                   @RequestHeader(name = "apenasAtivos", required = false, defaultValue = "true") final Boolean inAtivos) {
 
@@ -37,12 +39,12 @@ public class CooperativaRest extends RestExceptionHandler{
         return ResponseEntity.ok(CooperativaConverter.from(comando));
     }
     
-    @RequestMapping(value = "/pesquisar/{cooperativa}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
     public ResponseEntity<CooperativaRepresentation> getById(@RequestHeader(name = "Authorization") final String token,
-                                                             @RequestHeader(name = "cooperativa") final Integer cooperativa) {
+                                                             @PathVariable(name = "codigo") final Integer cdCoop) {
         
-        Cooperativa comando = cooperativaService.getCooperativaById(cooperativa);
-        return ResponseEntity.ok(CooperativaConverter.from(comando));
+        Cooperativa cooperativa = cooperativaService.getCooperativaById(cdCoop);
+        return ResponseEntity.ok(CooperativaConverter.from(cooperativa));
     }    
     
 }

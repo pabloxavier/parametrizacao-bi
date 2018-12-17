@@ -15,15 +15,19 @@ public class PostoService {
     @Autowired
     private PostoDAO dao;
 
-    public List<Posto> buscaPostos(final Integer cooperativa, final Integer posto, final Boolean inAtivos) {
-        List<Posto> postos = dao.buscaPostos(cooperativa, posto, inAtivos); 
+    public List<Posto> buscaPostos(final Integer cdCoop, final Integer cdPosto, final Boolean inAtivos) {
+        List<Posto> postos = dao.buscaPostos(cdCoop, cdPosto, inAtivos); 
         if (postos.isEmpty()) {
-            throw new NotFoundException("Não foi encontrado nenhum posto.");
+            throw new NotFoundException("Nenhum posto foi encontrado com os parâmetros informados.");
         }    
         return postos;
     }
 
-    public Posto getPostoById(final Integer cooperativa, final Integer posto) {
-        return dao.getPostoByPostoAndCoop(cooperativa, posto);
+    public Posto getPostoById(final Integer cdCoop, final Integer cdPosto) {
+        Posto posto = dao.getPostoByPostoAndCoop(cdCoop, cdPosto);
+        if (null == posto) {
+            throw new NotFoundException(String.format("Não foi encontrado o posto %d da cooperativa %d.", cdPosto, cdCoop));
+        }
+        return posto;
     }
 }
