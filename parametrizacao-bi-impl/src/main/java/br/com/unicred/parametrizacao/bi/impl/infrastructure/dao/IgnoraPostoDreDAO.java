@@ -63,7 +63,7 @@ public class IgnoraPostoDreDAO {
     public IgnoraPostoDre inserirPostoIgnorado(final IgnoraPostoDre ignoraPostoDre) {
         try {
             log.info(String.format("Inserindo posto %d ignorado na cooperativa %d.", ignoraPostoDre.getCodigoPosto(), ignoraPostoDre.getCodigoCooperativa()));
-            jdbcTemplate.update(INSERIR_POSTO_IGNORADO_SQL, getParams(ignoraPostoDre), getTypes());
+            //jdbcTemplate.update(INSERIR_POSTO_IGNORADO_SQL, getParams(ignoraPostoDre), getTypes());
             return ignoraPostoDre;
         } catch (Exception e) {
             throw new ErroInesperadoException(String.format("Erro ao inserir posto %d ignorado para cooperativa %d.", ignoraPostoDre.getCodigoPosto(), ignoraPostoDre.getCodigoCooperativa()), e);
@@ -73,7 +73,7 @@ public class IgnoraPostoDreDAO {
     public void excluirPostoIgnorado(final IgnoraPostoDreCommand comando) {
         try {
             log.info(String.format("Excluindo posto %d ignorado na cooperativa %d.", comando.getCodigoPosto(), comando.getCodigoCooperativa()));
-            jdbcTemplate.update(EXCLUIR_POSTO_IGNORADO_SQL, getParams(comando), getTypes());    
+            //jdbcTemplate.update(EXCLUIR_POSTO_IGNORADO_SQL, getParams(comando), getTypes());    
         } catch (Exception e) {
             throw new ErroInesperadoException(String.format("Erro ao excluir posto %d ignorado para cooperativa %d.", comando.getCodigoPosto(), comando.getCodigoCooperativa()), e);
         }
