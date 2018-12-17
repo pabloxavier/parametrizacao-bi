@@ -14,6 +14,13 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ErroInesperadoException.class)
+    public ResponseEntity<?> handleNotFoundException(ErroInesperadoException exception){
+        String message = exception.getMessage();
+        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<?> handleBadRequestException(BadRequestException exception) {
 

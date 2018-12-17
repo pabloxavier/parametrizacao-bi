@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.IgnoraPostoDre;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
 import br.com.unicred.parametrizacao.bi.impl.business.validators.IgnoraPostoDreValidator;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.IgnoraPostoDreDAO;
 
@@ -23,11 +24,19 @@ public class IgnoraPostoDreService {
     }
     
     public List<IgnoraPostoDre> buscaPostosIgnorados() {
-        return ignoraPostoDreDAO.buscaPostosIgnorados();
+        List<IgnoraPostoDre> postosIgnorados = ignoraPostoDreDAO.buscaPostosIgnorados();
+        if (postosIgnorados.isEmpty()) {
+            throw new NotFoundException("Não foram encontrados postos ignorados.");
+        }    
+        return postosIgnorados;
     }
 
-    public List<IgnoraPostoDre> buscaPostosIgnoradosByCoop(final Integer cooperativa) {
-        return ignoraPostoDreDAO.buscaPostosIgnoradosByCoop(cooperativa);
+    public List<IgnoraPostoDre> buscaPostosIgnoradosByCoop(final Integer cdCoop) {
+        List<IgnoraPostoDre> postosIgnoradosList = ignoraPostoDreDAO.buscaPostosIgnoradosByCoop(cdCoop);
+        if (postosIgnoradosList.size() == 0) {
+            throw new NotFoundException(String.format("Não foram encontrados postos ignorados na cooperativa %d.", cdCoop));
+        }
+        return postosIgnoradosList;
     }
     
     public IgnoraPostoDre inserirPostoIgnorado(final IgnoraPostoDreCommand comando) {
