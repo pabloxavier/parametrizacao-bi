@@ -26,6 +26,7 @@ public class PlanoFgCoopBrasilDAO {
     private static final String BUSCA_CONTA_BACEN_SQL_BY_CODIGO = "select codigo_conta_bacen, descricao_conta_bacen from edw.plano_fg_coop_brasil WHERE codigo_conta_bacen = ? ";
     private static final String INSERIR_CONTA_BACEN = "insert into edw.plano_fg_coop_brasil (codigo_conta_bacen, descricao_conta_bacen) values(?,?)";
     private static final String ALTERAR_CONTA_BACEN = "update edw.plano_fg_coop_brasil set codigo_conta_bacen = ?,	descricao_conta_bacen = ? where codigo_conta_bacen = ?";
+    private static final String EXCLUIR_CONTA_BACEN = "delete from edw.plano_fg_coop_brasil where codigo_conta_bacen = ?";
     
     @Autowired
     public PlanoFgCoopBrasilDAO(final JdbcTemplate jdbcTemplate) {
@@ -42,15 +43,9 @@ public class PlanoFgCoopBrasilDAO {
         }            
     }
 
-    public List<PlanoFgCoopBrasil> buscaContaBacenByCodigo(String codigoContaBacen) {
-        log.info(String.format("Procurando contas bacen pelo codigo %s.", codigoContaBacen));
-        List<PlanoFgCoopBrasil> contasBacenList = jdbcTemplate.query(BUSCA_CONTA_BACEN_SQL_BY_CODIGO, new Object[] { codigoContaBacen }, ROW_MAPPER);
-        
-        if (contasBacenList.size() == 0) {
-            log.warn(String.format("Não foram encontradas contas Bacen com este codigo %s.", codigoContaBacen));
-            throw new NotFoundException(String.format("Não foram encontradas contas Bacen com este codigo %s.", codigoContaBacen));
-        }
-        return contasBacenList;
+    public PlanoFgCoopBrasil buscaContaBacenByCodigo(String codigoContaBacen) {
+        	log.info(String.format("Procurando contas bacen pelo codigo %s.", codigoContaBacen));
+            return jdbcTemplate.queryForObject(BUSCA_CONTA_BACEN_SQL_BY_CODIGO, new Object[] { codigoContaBacen }, ROW_MAPPER);
     }
     
     public PlanoFgCoopBrasil inserirContaBacen(final PlanoFgCoopBrasil planoFgCoopBrasil) {
@@ -76,7 +71,18 @@ public class PlanoFgCoopBrasilDAO {
             throw new ErroInesperadoException();
         }
     }
-    
+
+    public void excluirContaBacen(String codigoContaBacen) {
+    	
+        try {
+            log.info(String.format("Excluindo conta bacen %s.", codigoContaBacen));
+            jdbcTemplate.update(EXCLUIR_CONTA_BACEN, codigoContaBacen);    
+        } catch (Exception e) {
+            log.error(String.format("Erro ao excluir conta bacen %s.", codigoContaBacen) + e);
+            throw new ErroInesperadoException();
+        }
+    }
+
     
     private Object[] getParams(final PlanoFgCoopBrasil planoFgCoopBrasil) {
         return new Object[] { planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen() };
@@ -93,6 +99,6 @@ public class PlanoFgCoopBrasilDAO {
     private int[] getTypesAlter() {
         return new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
     }
-    
+
 }
 
