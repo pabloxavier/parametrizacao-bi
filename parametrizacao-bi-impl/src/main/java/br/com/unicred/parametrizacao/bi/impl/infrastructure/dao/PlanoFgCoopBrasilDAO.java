@@ -25,6 +25,7 @@ public class PlanoFgCoopBrasilDAO {
     private static final String BUSCA_CONTA_BACEN_SQL = "select codigo_conta_bacen, descricao_conta_bacen from edw.plano_fg_coop_brasil";
     private static final String BUSCA_CONTA_BACEN_SQL_BY_CODIGO = "select codigo_conta_bacen, descricao_conta_bacen from edw.plano_fg_coop_brasil WHERE codigo_conta_bacen = ? ";
     private static final String INSERIR_CONTA_BACEN = "insert into edw.plano_fg_coop_brasil (codigo_conta_bacen, descricao_conta_bacen) values(?,?)";
+    private static final String ALTERAR_CONTA_BACEN = "update edw.plano_fg_coop_brasil set codigo_conta_bacen = ?,	descricao_conta_bacen = ? where codigo_conta_bacen = ?";
     
     @Autowired
     public PlanoFgCoopBrasilDAO(final JdbcTemplate jdbcTemplate) {
@@ -64,13 +65,33 @@ public class PlanoFgCoopBrasilDAO {
         }
     }
 
+    public PlanoFgCoopBrasil alterarContaBacen(final PlanoFgCoopBrasil planoFgCoopBrasil, String codigoContaBacen) {
+        
+        try {
+            log.info(String.format("Alterando conta bacen %s com a descrição %s onde ela for igual a %s.", planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen(), codigoContaBacen));
+            jdbcTemplate.update(ALTERAR_CONTA_BACEN, getParamsAlter(planoFgCoopBrasil, codigoContaBacen), getTypesAlter());
+            return planoFgCoopBrasil;
+        } catch (Exception e) {
+            log.error(String.format("Erro ao alterar conta bacen %s com a descrição %s onde ela for igual a %s.", planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen(), codigoContaBacen) + e);
+            throw new ErroInesperadoException();
+        }
+    }
+    
     
     private Object[] getParams(final PlanoFgCoopBrasil planoFgCoopBrasil) {
         return new Object[] { planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen() };
     }
     
+    private Object[] getParamsAlter(final PlanoFgCoopBrasil planoFgCoopBrasil, final String codigoContaBacen) {
+        return new Object[] { planoFgCoopBrasil.getCodigoContaBacen(), planoFgCoopBrasil.getDescricaoContaBacen(), codigoContaBacen };
+    }
+
     private int[] getTypes() {
         return new int[] { Types.VARCHAR, Types.VARCHAR};
+    }
+
+    private int[] getTypesAlter() {
+        return new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
     }
     
 }
