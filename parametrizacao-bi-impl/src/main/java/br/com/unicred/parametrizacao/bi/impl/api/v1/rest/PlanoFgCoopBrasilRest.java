@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,10 +41,10 @@ public class PlanoFgCoopBrasilRest extends RestExceptionHandler {
     }
     
     @RequestMapping(value = "/pesquisar/{codigoContaBacen}", method = RequestMethod.GET)
-    public ResponseEntity<List<PlanoFgCoopBrasilRepresentation>> pesquisar(@RequestHeader("Authorization") final String token,
-                                                                           @RequestHeader("codigoContaBacen") final String codigoContaBacen) {
+    public ResponseEntity<PlanoFgCoopBrasilRepresentation> pesquisar(@RequestHeader("Authorization") final String token,
+                                                                     @RequestHeader("codigoContaBacen") final String codigoContaBacen) {
         
-        List<PlanoFgCoopBrasil> contasBacenList = planoFgCoopBrasilService.buscaContaBacenByCodigo(codigoContaBacen);
+        PlanoFgCoopBrasil contasBacenList = planoFgCoopBrasilService.buscaContaBacenByCodigo(codigoContaBacen);
         return ResponseEntity.ok(PlanoFgCoopBrasilConverter.from(contasBacenList));
     }
 
@@ -57,7 +58,6 @@ public class PlanoFgCoopBrasilRest extends RestExceptionHandler {
     }
     
     @RequestMapping(value = "/alterar", method = RequestMethod.POST)
-
     public ResponseEntity<PlanoFgCoopBrasilRepresentation> alterar(@RequestHeader("Authorization") final String token,
     															   @RequestHeader("codigoContaBacen") final String codigoContaBacen,
             													   @RequestBody PlanoFgCoopBrasilCommand planoFgCoopBrasilCommand) {
@@ -65,6 +65,14 @@ public class PlanoFgCoopBrasilRest extends RestExceptionHandler {
         PlanoFgCoopBrasil dominio = planoFgCoopBrasilService.alterarContaBacen(planoFgCoopBrasilCommand, codigoContaBacen);
         
         return ResponseEntity.ok(PlanoFgCoopBrasilConverter.from(dominio));
+    }
+
+    @DeleteMapping(value = "/excluir")
+    public ResponseEntity<?> excluir(@RequestHeader("Authorization") final String token,
+			   						 @RequestHeader("codigoContaBacen") final String codigoContaBacen) {
+        
+        String mensagemExclusao = planoFgCoopBrasilService.excluirContaBacen(codigoContaBacen);
+        return ResponseEntity.ok(mensagemExclusao);
     }
 
 }
