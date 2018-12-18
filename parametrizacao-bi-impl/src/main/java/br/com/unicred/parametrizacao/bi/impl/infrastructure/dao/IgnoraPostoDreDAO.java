@@ -18,14 +18,14 @@ import br.com.unicred.parametrizacao.bi.impl.business.exceptions.ErroInesperadoE
 public class IgnoraPostoDreDAO {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private Logger log = LoggerFactory.getLogger(CooperativaDAO.class);
+    private Logger log = LoggerFactory.getLogger(IgnoraPostoDreDAO.class);
     private static final BeanPropertyRowMapper<IgnoraPostoDre> ROW_MAPPER = BeanPropertyRowMapper.newInstance(IgnoraPostoDre.class);
 
     private static final String POSTOS_IGNORADOS_SQL = "select codigo_cooperativa, codigo_posto from edw.ignora_posto_dre ";
     private static final String POSTOS_IGNORADOS_BY_COOP_SQL = "select codigo_cooperativa, codigo_posto from edw.ignora_posto_dre WHERE codigo_cooperativa = :cdCoop ";
     private static final String POSTO_IGNORADO_BY_COOP_E_POSTO_SQL = "select codigo_cooperativa, codigo_posto from edw.ignora_posto_dre WHERE codigo_cooperativa = :cdCoop and codigo_posto = :cdPosto limit 1 ";
-    private static final String INSERIR_POSTO_IGNORADO_SQL = "insert into edw.ignora_posto_dre (codigo_cooperativa, codigo_posto) values (?, ?) ";
-    private static final String EXCLUIR_POSTO_IGNORADO_SQL = "delete from edw.ignora_posto_dre where codigo_cooperativa = ? and codigo_posto = ? ";
+    private static final String INSERIR_POSTO_IGNORADO_SQL = "insert into edw.ignora_posto_dre (codigo_cooperativa, codigo_posto) values (:cdCoop, :cdPosto) ";
+    private static final String EXCLUIR_POSTO_IGNORADO_SQL = "delete from edw.ignora_posto_dre where codigo_cooperativa = :cdCoop and codigo_posto = :cdPosto ";
 
     @Autowired
     public IgnoraPostoDreDAO(final NamedParameterJdbcTemplate jdbcTemplate) {
@@ -63,7 +63,7 @@ public class IgnoraPostoDreDAO {
     public IgnoraPostoDre inserirPostoIgnorado(final IgnoraPostoDre ignoraPostoDre) {
         try {
             log.info(String.format("Inserindo posto %d ignorado na cooperativa %d.", ignoraPostoDre.getCodigoPosto(), ignoraPostoDre.getCodigoCooperativa()));
-            //jdbcTemplate.update(INSERIR_POSTO_IGNORADO_SQL, getParams(ignoraPostoDre), getTypes());
+            jdbcTemplate.update(INSERIR_POSTO_IGNORADO_SQL, getParams(ignoraPostoDre.getCodigoCooperativa(), ignoraPostoDre.getCodigoPosto()));
             return ignoraPostoDre;
         } catch (Exception e) {
             throw new ErroInesperadoException(String.format("Erro ao inserir posto %d ignorado para cooperativa %d.", ignoraPostoDre.getCodigoPosto(), ignoraPostoDre.getCodigoCooperativa()), e);
@@ -73,7 +73,7 @@ public class IgnoraPostoDreDAO {
     public void excluirPostoIgnorado(final IgnoraPostoDreCommand comando) {
         try {
             log.info(String.format("Excluindo posto %d ignorado na cooperativa %d.", comando.getCodigoPosto(), comando.getCodigoCooperativa()));
-            //jdbcTemplate.update(EXCLUIR_POSTO_IGNORADO_SQL, getParams(comando), getTypes());    
+            jdbcTemplate.update(EXCLUIR_POSTO_IGNORADO_SQL, getParams(comando.getCodigoCooperativa(), comando.getCodigoPosto()));    
         } catch (Exception e) {
             throw new ErroInesperadoException(String.format("Erro ao excluir posto %d ignorado para cooperativa %d.", comando.getCodigoPosto(), comando.getCodigoCooperativa()), e);
         }

@@ -1,13 +1,10 @@
 package br.com.unicred.parametrizacao.bi.impl.business.validators;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCommand;
-import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadRequestException;
+import br.com.unicred.parametrizacao.bi.impl.business.domain.IgnoraPostoDre;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.RegistroJaExistenteException;
 import br.com.unicred.parametrizacao.bi.impl.business.services.CooperativaService;
@@ -20,7 +17,6 @@ public class IgnoraPostoDreValidator {
     private CooperativaService cooperativaService;
     private PostoService postoService;
     private IgnoraPostoDreDAO ignoraPostoDreDAO;
-    private Logger log = LoggerFactory.getLogger(IgnoraPostoDreValidator.class);
     
     @Autowired    
     public IgnoraPostoDreValidator(CooperativaService cooperativaService, PostoService postoService, IgnoraPostoDreDAO ignoraPostoDreDAO) {
@@ -56,15 +52,8 @@ public class IgnoraPostoDreValidator {
     }
     
     public Boolean existeRegistro(final Integer cooperativa, final Integer posto) {
-        try {
-            ignoraPostoDreDAO.buscaPostoIgnoradoByCoopEPosto(cooperativa, posto);
-            return Boolean.TRUE;
-        } catch (final EmptyResultDataAccessException e) {
-            return Boolean.FALSE;
-        } catch (final Exception e) {
-            log.error("Erro ao buscar posto " +posto + " ignorado na cooperativa " + cooperativa, e);
-            throw new BadRequestException(null);
-        }
-    }    
+        IgnoraPostoDre postoIgnorado = ignoraPostoDreDAO.buscaPostoIgnoradoByCoopEPosto(cooperativa, posto);
+        return postoIgnorado == null ? Boolean.FALSE : Boolean.TRUE;
+    }
 
 }
