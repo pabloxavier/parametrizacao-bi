@@ -15,16 +15,16 @@ public class PeriodoFechamentoRRCommand {
    public void validate() {
       //TODO realizar validacao
    }
-
+    
     public LocalDate getDataCompetenciaRankingRating() {
-        return dataCompetenciaRankingRating;
-    }
-    
-    public void setDataCompetenciaRankingRating(LocalDate dataCompetenciaRankingRating) {
-        this.dataCompetenciaRankingRating = dataCompetenciaRankingRating;
-    }
-    
-    public LocalDate getDataUltimoPocessamento() {
+    	return dataCompetenciaRankingRating;
+	}
+	
+	public void setDataCompetenciaRankingRating(LocalDate dataCompetenciaRankingRating) {
+		this.dataCompetenciaRankingRating = dataCompetenciaRankingRating;
+	}
+
+	public LocalDate getDataUltimoPocessamento() {
         return dataUltimoPocessamento;
     }
     

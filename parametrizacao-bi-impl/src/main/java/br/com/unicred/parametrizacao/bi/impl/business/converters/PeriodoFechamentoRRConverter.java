@@ -11,9 +11,9 @@ public class PeriodoFechamentoRRConverter {
 	public static PeriodoFechamentoRRRepresentation from(PeriodoFechamentoRR dominio) {
 		
 		PeriodoFechamentoRRRepresentation model = new PeriodoFechamentoRRRepresentation();
-		model.setDataCompetenciaRankingRating(dominio.getDataCompetencia());
-		model.setDataUltimoProcessamento(dominio.getDataUltimoPocessamento());
-		model.setFlagFechado(dominio.getFlagFechado());
+		model.setDataCompetenciaRankingRating(dominio.getDataCompetenciaRankingRating());
+		model.setDataUltimoPocessamento(dominio.getDataUltimoPocessamento());
+		model.setPeriodoFechado(dominio.getFlagFechado());
 		
 		return model;
 	}
