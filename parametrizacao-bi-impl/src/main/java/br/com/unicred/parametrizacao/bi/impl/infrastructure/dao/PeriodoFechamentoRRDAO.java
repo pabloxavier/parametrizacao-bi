@@ -12,11 +12,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.commands.PeriodoFechamentoRRCommand;
-import br.com.unicred.parametrizacao.bi.impl.business.domain.IgnoraPostoDre;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.PeriodoFechamentoRR;
-import br.com.unicred.parametrizacao.bi.impl.business.domain.Posto;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadRequestException;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.ErroInesperadoException;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
@@ -77,18 +74,18 @@ public class PeriodoFechamentoRRDAO {
   public PeriodoFechamentoRR inserirPeriodoFechamentoRR(PeriodoFechamentoRR periodoFechamentoRR) {
 
       try {
-          log.info(String.format("Inserindo período %d.", periodoFechamentoRR.getDataCompetencia()));
+          log.info(String.format("Inserindo período %d.", periodoFechamentoRR.getDataCompetenciaRankingRating()));
           jdbcTemplate.update(INSERIR_PERIODO_FECHAMENTO_RR, getParams(periodoFechamentoRR), getTypes());
           return periodoFechamentoRR;
       } catch (Exception e) {
-          log.error(String.format("Erro ao inserir período %d.", periodoFechamentoRR.getDataCompetencia()) + e);
+          log.error(String.format("Erro ao inserir período %d.", periodoFechamentoRR.getDataCompetenciaRankingRating()) + e);
           throw new ErroInesperadoException();
       }
 	  
   }
   
   private Object[] getParams(final PeriodoFechamentoRR periodoFechamentoRR) {
-      return new Object[] { periodoFechamentoRR.getDataCompetencia() };
+      return new Object[] { periodoFechamentoRR.getDataCompetenciaRankingRating() };
   }
   
   private int[] getTypes() {

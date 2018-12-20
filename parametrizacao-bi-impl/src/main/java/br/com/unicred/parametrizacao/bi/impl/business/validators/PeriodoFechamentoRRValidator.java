@@ -42,7 +42,7 @@ public class PeriodoFechamentoRRValidator {
        } catch (final EmptyResultDataAccessException e) {
            return Boolean.FALSE;
        } catch (final Exception e) {
-           log.error("Erro ao buscar a data de competência " + DataCompetenciaRankingRating + ".", e);
+           log.error("Existe registro para a data de competência " + DataCompetenciaRankingRating + ".", e);
            throw new BadRequestException(null);
        }
    }

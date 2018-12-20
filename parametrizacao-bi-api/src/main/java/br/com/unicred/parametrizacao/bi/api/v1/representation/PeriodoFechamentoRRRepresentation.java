@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class PeriodoFechamentoRRRepresentation {
 	
 	private LocalDate dataCompetenciaRankingRating;
-	private LocalDate dataUltimoProcessamento;
-	private String flagFechado;
+	private LocalDate dataUltimoPocessamento;
+	private String periodoFechado;
 
 	public LocalDate getDataCompetenciaRankingRating() {
 		return dataCompetenciaRankingRating;
@@ -14,17 +14,17 @@ public class PeriodoFechamentoRRRepresentation {
 	public void setDataCompetenciaRankingRating(LocalDate dataCompetenciaRankingRating) {
 		this.dataCompetenciaRankingRating = dataCompetenciaRankingRating;
 	}
-	public LocalDate getDataUltimoProcessamento() {
-		return dataUltimoProcessamento;
+	public LocalDate getDataUltimoPocessamento() {
+		return dataUltimoPocessamento;
 	}
-	public void setDataUltimoProcessamento(LocalDate dataUltimoProcessamento) {
-		this.dataUltimoProcessamento = dataUltimoProcessamento;
+	public void setDataUltimoPocessamento(LocalDate dataUltimoPocessamento) {
+		this.dataUltimoPocessamento = dataUltimoPocessamento;
 	}
-	public String getFlagFechado() {
-		return flagFechado;
+	public String getPeriodoFechado() {
+		return periodoFechado;
 	}
-	public void setFlagFechado(String flagFechado) {
-		this.flagFechado = flagFechado;
+	public void setPeriodoFechado(String periodoFechado) {
+		this.periodoFechado = periodoFechado;
 	}
 
 }

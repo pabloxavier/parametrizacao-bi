@@ -6,7 +6,7 @@ import br.com.unicred.parametrizacao.bi.impl.business.commands.PeriodoFechamento
 
 public class PeriodoFechamentoRR {
 
-    private LocalDate dataCompetencia;
+    private LocalDate dataCompetenciaRankingRating;
     private LocalDate dataUltimoPocessamento;
     private String flagFechado;
     
@@ -15,7 +15,7 @@ public class PeriodoFechamentoRR {
     }
     
     private PeriodoFechamentoRR (PeriodoFechamentoRRCommand comando) {
-        this.dataCompetencia = comando.getDataCompetenciaRankingRating();
+        this.dataCompetenciaRankingRating = comando.getDataCompetenciaRankingRating();
         this.dataUltimoPocessamento = comando.getDataUltimoPocessamento();
         this.flagFechado = comando.getFlagFechado();        
     }    
@@ -23,18 +23,31 @@ public class PeriodoFechamentoRR {
     public static PeriodoFechamentoRR criar(PeriodoFechamentoRRCommand comando){
         comando.validate();
         return new PeriodoFechamentoRR(comando);
-    }    
-    
-    public LocalDate getDataCompetencia() {
-        return dataCompetencia;
     }
 
-    public LocalDate getDataUltimoPocessamento() {
-        return dataUltimoPocessamento;
-    }
+	
+	public LocalDate getDataCompetenciaRankingRating() {
+		return dataCompetenciaRankingRating;
+	}
 
-    public String getFlagFechado() {
-        return flagFechado;
-    }    
+	public void setDataCompetenciaRankingRating(LocalDate dataCompetenciaRankingRating) {
+		this.dataCompetenciaRankingRating = dataCompetenciaRankingRating;
+	}
+
+	public LocalDate getDataUltimoPocessamento() {
+		return dataUltimoPocessamento;
+	}
+
+	public void setDataUltimoPocessamento(LocalDate dataUltimoPocessamento) {
+		this.dataUltimoPocessamento = dataUltimoPocessamento;
+	}
+
+	public String getFlagFechado() {
+		return flagFechado;
+	}
+
+	public void setFlagFechado(String flagFechado) {
+		this.flagFechado = flagFechado;
+	}    
     
 }
