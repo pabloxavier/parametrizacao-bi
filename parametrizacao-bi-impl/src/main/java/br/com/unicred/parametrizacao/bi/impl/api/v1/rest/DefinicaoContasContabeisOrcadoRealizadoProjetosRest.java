@@ -1,23 +1,28 @@
 package br.com.unicred.parametrizacao.bi.impl.api.v1.rest;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import br.com.unicred.arch.swagger.annotation.UnicredSwaggerAPI;
 import br.com.unicred.parametrizacao.bi.api.v1.endpoints.DefaultEndpoint;
-import br.com.unicred.parametrizacao.bi.api.v1.representation.DefinicaoContasContabeisOrcadoRealizadoProjetosRepresentation;
 import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.commands.DefinicaoContasContabeisOrcadoRealizadoProjetosEdicaoCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.converters.DefinicaoContasContabeisOrcadoRealizadoProjetosConverter;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.DefinicaoContasContabeisOrcadoRealizadoProjetos;
 import br.com.unicred.parametrizacao.bi.impl.business.services.DefinicaoContasContabeisOrcadoRealizadoProjetosService;
-import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 @CrossOrigin(allowedHeaders = "*")
-@UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1/", version="v1", title="Contas Contabeis Orcado Realizado Projetos API")
+@UnicredSwaggerAPI(basePath="/parametrizacao/bi/v1/", version="v1", title="Definicao Contas Contabeis Orcado Realizado Projetos API")
 @RestController
-@RequestMapping("/parametrizacao/bi/v1/ContasContabeisOrcadoRealizadoProjetos")
+@RequestMapping("/parametrizacao/bi/v1/DefinicaoContasContabeisOrcadoRealizadoProjetos")
 public class DefinicaoContasContabeisOrcadoRealizadoProjetosRest extends DefaultEndpoint {
     @Autowired
     private DefinicaoContasContabeisOrcadoRealizadoProjetosService service;
