@@ -7,27 +7,25 @@ import br.com.unicred.parametrizacao.bi.impl.business.commands.IgnoraPostoDreCom
 import br.com.unicred.parametrizacao.bi.impl.business.domain.IgnoraPostoDre;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.RegistroJaExistenteException;
-import br.com.unicred.parametrizacao.bi.impl.business.services.CooperativaService;
-import br.com.unicred.parametrizacao.bi.impl.business.services.PostoService;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.IgnoraPostoDreDAO;
 
 @Component
 public class IgnoraPostoDreValidator {
     
-    private CooperativaService cooperativaService;
-    private PostoService postoService;
+    private CooperativaValidator cooperativaValidator;
+    private PostoValidator postoValidator;
     private IgnoraPostoDreDAO ignoraPostoDreDAO;
     
     @Autowired    
-    public IgnoraPostoDreValidator(CooperativaService cooperativaService, PostoService postoService, IgnoraPostoDreDAO ignoraPostoDreDAO) {
-        this.cooperativaService = cooperativaService;
-        this.postoService = postoService;
+    public IgnoraPostoDreValidator(CooperativaValidator cooperativaValidator, PostoValidator postoValidator, IgnoraPostoDreDAO ignoraPostoDreDAO) {
+        this.cooperativaValidator = cooperativaValidator;
+        this.postoValidator = postoValidator;
         this.ignoraPostoDreDAO = ignoraPostoDreDAO;
     }
 
     public void validateInsert(IgnoraPostoDreCommand comando) {      
-        existeCoop(comando);
-        existePosto(comando);
+        cooperativaValidator.existeCoop(comando.getCodigoCooperativa());
+        postoValidator.existePosto(comando.getCodigoCooperativa(), comando.getCodigoPosto());
         previneUnicidade(comando.getCodigoCooperativa(), comando.getCodigoPosto());
     }
     
@@ -35,14 +33,6 @@ public class IgnoraPostoDreValidator {
         if (!existeRegistro(comando.getCodigoCooperativa(), comando.getCodigoPosto())) {
             throw new NotFoundException("O posto " + comando.getCodigoPosto() + " com cooperativa " + comando.getCodigoCooperativa() + " não foi encontrado base de postos ignorados.");
         }
-    }
-
-    public void existeCoop(IgnoraPostoDreCommand comando) {
-        cooperativaService.getCooperativaById(comando.getCodigoCooperativa());
-    }
-    
-    public void existePosto(IgnoraPostoDreCommand comando) {
-        postoService.getPostoById(comando.getCodigoCooperativa(), comando.getCodigoPosto());
     }
     
     public void previneUnicidade(final Integer cooperativa, final Integer posto) {
