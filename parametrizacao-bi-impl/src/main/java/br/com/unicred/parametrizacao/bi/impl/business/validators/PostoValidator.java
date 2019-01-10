@@ -16,7 +16,7 @@ public class PostoValidator {
     }
 
     public void existePosto(final Integer cdCoop, final Integer cdPosto) {
-        service.getPostoById(cdCoop, cdPosto);
+        service.getPostoById(cdCoop, cdPosto, Boolean.TRUE);
     }
 
 

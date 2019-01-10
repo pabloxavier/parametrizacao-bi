@@ -16,7 +16,7 @@ public class CooperativaValidator {
     }
 
     public void existeCoop(final Integer cdCoop) {
-        service.getCooperativaById(cdCoop);
+        service.getCooperativaById(cdCoop, Boolean.TRUE);
     }
 
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.unicred.parametrizacao.bi.impl.business.commands.ContasContabeisOrcadoRealizadoCommand;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.ContasContabeisOrcadoRealizado;
+import br.com.unicred.parametrizacao.bi.impl.business.exceptions.BadInsertException;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.RegistroJaExistenteException;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.ContasContabeisOrcadoRealizadoDAO;
@@ -24,7 +25,7 @@ public class ContasContabeisOrcadoRealizadoValidator {
 
     public void validateInsert(ContasContabeisOrcadoRealizadoCommand comando, final Boolean isProjeto) {      
         cooperativaValidator.existeCoop(comando.getCodigoCooperativa());
-        validaConta(comando.getCodigoContaEstrutural());
+        validaConta(comando.getCodigoContaEstrutural(),isProjeto);
         previneUnicidade(comando.getCodigoCooperativa(), comando.getCodigoContaEstrutural(), isProjeto);
     }
     
@@ -35,20 +36,22 @@ public class ContasContabeisOrcadoRealizadoValidator {
         }
     }
     
-    public void validaConta(String cdConta) {
-        //TO-DO
+    private void validaConta(String cdConta, Boolean isProjeto) {
+        if ((isProjeto && cdConta.length() > 15) || (!isProjeto && cdConta.length() > 10)) {
+            throw new BadInsertException("Conta inválida");
+        }        
     }
     
-    public void previneUnicidade(final Integer cdCoop, final String cdConta, final Boolean isProjeto) {
+    private void previneUnicidade(final Integer cdCoop, final String cdConta, final Boolean isProjeto) {
         if (existeRegistro(cdCoop, cdConta, isProjeto)) {
             String mensagem = ContasContabeisOrcadoRealizadoUtils.defineMensagem(isProjeto);
             throw new RegistroJaExistenteException(String.format("Já existe %s para cooperativa %d e conta %s.", mensagem, cdCoop, cdConta));
         }
     }
     
-    public Boolean existeRegistro(final Integer cdCoop, final String cdConta, final Boolean isProjeto) {
+    private Boolean existeRegistro(final Integer cdCoop, final String cdConta, final Boolean isProjeto) {
         ContasContabeisOrcadoRealizado registro = dao.buscaContaContabilOrcadoRealizadoByCoopAndConta(cdCoop, cdConta, isProjeto);
         return registro == null ? Boolean.FALSE : Boolean.TRUE;
-    }
+    }    
 
 }

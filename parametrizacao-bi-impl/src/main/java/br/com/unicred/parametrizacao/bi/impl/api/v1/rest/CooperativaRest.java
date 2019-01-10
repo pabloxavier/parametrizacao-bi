@@ -43,7 +43,7 @@ public class CooperativaRest extends RestExceptionHandler{
     public ResponseEntity<CooperativaRepresentation> getById(@RequestHeader(name = "Authorization") final String token,
                                                              @PathVariable(name = "codigo") final Integer cdCoop) {
         
-        Cooperativa cooperativa = cooperativaService.getCooperativaById(cdCoop);
+        Cooperativa cooperativa = cooperativaService.getCooperativaById(cdCoop, Boolean.FALSE);
         return ResponseEntity.ok(CooperativaConverter.from(cooperativa));
     }    
     

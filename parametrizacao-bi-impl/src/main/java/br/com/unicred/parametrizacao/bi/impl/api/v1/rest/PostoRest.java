@@ -46,7 +46,7 @@ public class PostoRest  extends RestExceptionHandler{
                                                        @RequestHeader(name = "codigoCooperativa") final Integer cdCoop,            
                                                        @RequestHeader(name = "codigoPosto") final Integer cdPosto) {
         
-        Posto posto = postoService.getPostoById(cdCoop, cdPosto);
+        Posto posto = postoService.getPostoById(cdCoop, cdPosto, Boolean.FALSE);
         return ResponseEntity.ok(PostoConverter.from(posto));
     }   
     
