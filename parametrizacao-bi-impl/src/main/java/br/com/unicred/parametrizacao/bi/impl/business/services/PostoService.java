@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.unicred.parametrizacao.bi.impl.business.domain.Posto;
 import br.com.unicred.parametrizacao.bi.impl.business.exceptions.NotFoundException;
 import br.com.unicred.parametrizacao.bi.impl.infrastructure.dao.PostoDAO;
+import br.com.unicred.parametrizacao.bi.impl.infrastructure.utils.Constants;
 
 @Service
 public class PostoService {
@@ -23,9 +24,9 @@ public class PostoService {
         return postos;
     }
 
-    public Posto getPostoById(final Integer cdCoop, final Integer cdPosto) {
+    public Posto getPostoById(final Integer cdCoop, final Integer cdPosto, Boolean isValidacao) {
         Posto posto = dao.getPostoByPostoAndCoop(cdCoop, cdPosto);
-        if (null == posto) {
+        if (null == posto && cdCoop != Constants.COOP_UBR) {
             throw new NotFoundException(String.format("Não foi encontrado o posto %d da cooperativa %d.", cdPosto, cdCoop));
         }
         return posto;
