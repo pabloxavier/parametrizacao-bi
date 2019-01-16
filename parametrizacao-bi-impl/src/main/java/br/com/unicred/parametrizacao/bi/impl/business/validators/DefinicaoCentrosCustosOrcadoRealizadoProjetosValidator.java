@@ -28,7 +28,7 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosValidator {
         this.dao = dao;
     }
 
-    public void validateInsert(DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {      
+    public void validateInsertUpdate(DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {      
         cooperativaValidator.existeCoop(comando.getCodigoCooperativa());        
         existeComparacao(comando.getComparacao());
         existePosto(comando);
@@ -61,9 +61,12 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosValidator {
         }
     }
     
-    private static void existeComparacao(String comparacao) {
-        if(!EnumUtils.isValidEnum(ComparacaoEnum.class, comparacao.toUpperCase())) 
-            throw new NotFoundException(String.format("Comparacao %s inválida.", comparacao)); 
+    private boolean existeComparacao(String comparacao) {
+        try {
+            return EnumUtils.isValidEnum(ComparacaoEnum.class, ComparacaoEnum.getById(comparacao).toString());
+        } catch (Exception e) {
+            throw new NotFoundException(String.format("Comparacao %s inválida.", comparacao));
+        }
    }    
-
+    
 }

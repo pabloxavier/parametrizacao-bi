@@ -28,11 +28,13 @@ public class CooperativaService {
         return cooperativasList;
     }
 
-    public Cooperativa getCooperativaById(final Integer cdCoop, Boolean isValidacao) {
+    public Cooperativa getCooperativaById(final Integer cdCoop, final Boolean isValidacao) {
+                
         Cooperativa coop = dao.getCooperativaById(cdCoop);
-        if (null == coop && cdCoop != Constants.COOP_UBR) {
+        if ((null == coop && !isValidacao) || (isValidacao && !cdCoop.equals(Constants.COOP_UBR))) {
             throw new NotFoundException(String.format("Cooperativa %d não encontrada.", cdCoop));
         }
         return coop;
     }
+
 }

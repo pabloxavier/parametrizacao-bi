@@ -41,11 +41,19 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosService {
     }
     
     public DefinicaoCentrosCustosOrcadoRealizadoProjetos inserir(final DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {
-        validator.validateInsert(comando);
+        validator.validateInsertUpdate(comando);
         
         DefinicaoCentrosCustosOrcadoRealizadoProjetos dominio = DefinicaoCentrosCustosOrcadoRealizadoProjetos.criar(comando);
         dao.inserir(dominio);
         return dominio;
+    }
+    
+    public DefinicaoCentrosCustosOrcadoRealizadoProjetos editar(Integer cdCoop, String comparacao, String cdPosto, DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {
+        validator.validateInsertUpdate(comando);
+        
+        DefinicaoCentrosCustosOrcadoRealizadoProjetos dominio = DefinicaoCentrosCustosOrcadoRealizadoProjetos.editar(comando);
+        dao.editar(cdCoop, comparacao, cdPosto, dominio);
+        return listarComFiltros(comando.getCodigoCooperativa(), comando.getComparacao(), comando.getCodigoPosto(), null).get(0);
     }
     
     public String excluir(final DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {

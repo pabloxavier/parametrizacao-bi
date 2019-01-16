@@ -24,6 +24,7 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosDAO {
     private static final String MENSAGEM = "Definicao Centros Custos Orcado Realizado Projetos";
     private static final String LISTAR_SQL = "select codigo_cooperativa, comparacao, codigo_posto, excluir from edw.definicao_centros_custos_orcado_realizado_projetos where 1 = 1 ";
     private static final String INSERIR_SQL = "insert into edw.definicao_centros_custos_orcado_realizado_projetos (codigo_cooperativa, comparacao, codigo_posto, excluir) values (:cdCoop, :comparacao, :cdPosto, false) ";
+    private static final String EDITAR_SQL = "update edw.definicao_centros_custos_orcado_realizado_projetos set codigo_cooperativa = :cdCoopDominio, comparacao = :comparacaoDominio, codigo_posto = :cdPostoDominio where codigo_cooperativa = :cdCoop and comparacao = :comparacao and codigo_posto = :cdPosto";
     private static final String EXCLUIR_SQL = "update edw.definicao_centros_custos_orcado_realizado_projetos set excluir = true where codigo_cooperativa = :cdCoop and comparacao =:comparacao and codigo_posto = :cdPosto";
 
     @Autowired
@@ -71,6 +72,16 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosDAO {
         }
     }
     
+    public DefinicaoCentrosCustosOrcadoRealizadoProjetos editar(Integer cdCoop, String comparacao, String cdPosto, DefinicaoCentrosCustosOrcadoRealizadoProjetos dominio) {
+        try {
+            log.info(String.format("Editando %s [%s].", MENSAGEM, dominio.toString()));         
+            jdbcTemplate.update(EDITAR_SQL, getParams(cdCoop, comparacao, cdPosto, dominio));
+            return dominio;
+        } catch (final Exception e) {
+            throw new ErroInesperadoException(String.format("Erro ao editar %s [%s].", MENSAGEM, dominio.toString()), e);
+        }           
+    }    
+    
     public void excluir(final DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {
         try {
             log.info(String.format("Excluindo %s [%s].", MENSAGEM, comando.toString()));
@@ -90,5 +101,14 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosDAO {
         return new MapSqlParameterSource("cdCoop", comando.getCodigoCooperativa())
                                .addValue("comparacao", comando.getComparacao())
                                .addValue("cdPosto", comando.getCodigoPosto());
-    }    
+    } 
+
+    private MapSqlParameterSource getParams(Integer cdCoop, String comparacao, String cdPosto, DefinicaoCentrosCustosOrcadoRealizadoProjetos dominio) {
+        return new MapSqlParameterSource("cdCoopDominio", dominio.getCodigoCooperativa())
+                               .addValue("comparacaoDominio", dominio.getComparacao())
+                               .addValue("cdPostoDominio", dominio.getCodigoPosto())
+                               .addValue("cdCoop", cdCoop)
+                               .addValue("comparacao", comparacao)
+                               .addValue("cdPosto", cdPosto);
+    }     
 }
