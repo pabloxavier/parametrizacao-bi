@@ -13,16 +13,26 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetos {
         
     }
     
-    private DefinicaoCentrosCustosOrcadoRealizadoProjetos(DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando){
-        this.codigoCooperativa = comando.getCodigoCooperativa();
-        this.comparacao = comando.getComparacao();
-        this.codigoPosto = comando.getCodigoPosto();
-        this.excluir = Boolean.FALSE;
+    private DefinicaoCentrosCustosOrcadoRealizadoProjetos(Integer cdCoop, String comparacao, String cdPosto, Boolean isExcluido){
+        this.codigoCooperativa = cdCoop;
+        this.comparacao = comparacao;
+        this.codigoPosto = cdPosto;
+        this.excluir = isExcluido;
     }
     
+    private DefinicaoCentrosCustosOrcadoRealizadoProjetos(Integer cdCoop, String comparacao, String cdPosto){
+        this.codigoCooperativa = cdCoop;
+        this.comparacao = comparacao;
+        this.codigoPosto = cdPosto;
+    }    
+    
     public static DefinicaoCentrosCustosOrcadoRealizadoProjetos criar(DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando){
-        return new DefinicaoCentrosCustosOrcadoRealizadoProjetos(comando);
+        return new DefinicaoCentrosCustosOrcadoRealizadoProjetos(comando.getCodigoCooperativa(), comando.getComparacao(), comando.getCodigoPosto(), Boolean.FALSE);
     }
+    
+    public static DefinicaoCentrosCustosOrcadoRealizadoProjetos editar(DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando){
+        return new DefinicaoCentrosCustosOrcadoRealizadoProjetos(comando.getCodigoCooperativa(), comando.getComparacao(), comando.getCodigoPosto());
+    }    
 
     public Integer getCodigoCooperativa() {
         return codigoCooperativa;

@@ -14,6 +14,7 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosConverter {
         model.setCodigoCooperativa(dominio.getCodigoCooperativa());
         model.setComparacao(dominio.getComparacao());
         model.setCodigoPosto(dominio.getCodigoPosto());
+        //String isExcluido = null == dominio.getExcluir() ? "" : BooleanConverter.booleanToPalavra(dominio.getExcluir());
         model.setIsExcluido(BooleanConverter.booleanToPalavra(dominio.getExcluir()));
 
         return model;

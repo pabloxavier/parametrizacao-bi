@@ -59,6 +59,17 @@ public class DefinicaoCentrosCustosOrcadoRealizadoProjetosRest extends RestExcep
         return ResponseEntity.ok(DefinicaoCentrosCustosOrcadoRealizadoProjetosConverter.from(dominio));
     }
     
+    @RequestMapping(value = "/editar", method = RequestMethod.POST)
+    public ResponseEntity<DefinicaoCentrosCustosOrcadoRealizadoProjetosRepresentation> editar(@RequestHeader("Authorization") final String token,
+                                                                                              @RequestHeader(name="cooperativa", required = false) Integer cdCoop,
+                                                                                              @RequestHeader(name="comparacao", required = false) String comparacao,
+                                                                                              @RequestHeader(name="posto", required = false) String cdPosto,            
+                                                                                              @RequestBody DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {
+        
+        DefinicaoCentrosCustosOrcadoRealizadoProjetos dominio = service.editar(cdCoop, comparacao, cdPosto, comando);
+        return ResponseEntity.ok(DefinicaoCentrosCustosOrcadoRealizadoProjetosConverter.from(dominio));
+    }    
+    
     @DeleteMapping(value = "/excluir")
     public ResponseEntity<?> excluir(@RequestHeader("Authorization") final String token,
                                      @RequestBody DefinicaoCentrosCustosOrcadoRealizadoProjetosCommand comando) {

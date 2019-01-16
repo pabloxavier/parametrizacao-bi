@@ -26,7 +26,7 @@ public class PostoService {
 
     public Posto getPostoById(final Integer cdCoop, final Integer cdPosto, Boolean isValidacao) {
         Posto posto = dao.getPostoByPostoAndCoop(cdCoop, cdPosto);
-        if (null == posto && cdCoop != Constants.COOP_UBR) {
+        if ((null == posto && !isValidacao) || (isValidacao && !cdCoop.equals(Constants.COOP_UBR))) {
             throw new NotFoundException(String.format("Não foi encontrado o posto %d da cooperativa %d.", cdPosto, cdCoop));
         }
         return posto;
